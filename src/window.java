@@ -83,7 +83,7 @@ public class window extends JFrame implements MouseListener{
     /***主程式***/
     public static void main(String args[]){
         window game=new window(); 
-        game.gameOver();
+        //game.gameOver();
     }
 }
 
