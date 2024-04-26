@@ -45,10 +45,12 @@
 
 6.初始化{
 
-  Timer = 1min
-  during_time = 0
-  life = 3
-  score = 0
+  Player_initial{
+    Timer = 1min
+    during_time = 0
+    life = 3
+    score = 0
+  }
 
   Frequency{
 
@@ -72,5 +74,5 @@
     //when first small boss die
     normal diglett = two per sec
     normal and special at the same time = true
-  }
+
 }
