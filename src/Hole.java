@@ -1,23 +1,22 @@
 import javax.swing.JPanel;
 import java.awt.Graphics2D;
 
-
 public class Hole extends JPanel{
     protected int x;
     protected int y;
 
-    public Hole(window w){
-        this.x=0;
-        this.y=0;
+    public Hole(window w) {
+        this.x = 0;
+        this.y = 0;
     }
     
-    public void setHole(int x,int y){
-        this.x=x;
-        this.y=y;
+    public void setHole(int x,int y) {
+        this.x = x;
+        this.y = y;
     }
     
-    public void paint(Graphics2D g){
-        g.drawOval(this.x,this.y,100,100);//畫外緣
-        // g.fillOval(hole[i].x,hole[i].y,100,100);//填滿圓
+    public void paint(Graphics2D g) {
+        g.drawOval(this.x,this.y,100,100);  // 畫外緣
+        // g.fillOval(hole[i].x,hole[i].y,100,100);  // 填滿圓
     }
 }
