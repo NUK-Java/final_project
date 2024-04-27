@@ -54,7 +54,6 @@ public class Window extends JFrame implements MouseListener {
         rat.paint(g2d);  // 畫出rat
     }
 
- 
     @Override
     public void mouseClicked(MouseEvent e) {}
 
@@ -63,8 +62,8 @@ public class Window extends JFrame implements MouseListener {
         if(rat.dead()) {
             int i=(int)(Math.random() * 6);
             rat = new Rat(hole[i],this);
-            this.repaint(hole[i].x+25,hole[i].y+25,50,50);
             time.plusTime();
+            this.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
         }
     }
 
