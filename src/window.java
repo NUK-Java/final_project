@@ -13,57 +13,55 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.Math; 
 
-public class Window extends JFrame implements MouseListener{
+public class Window extends JFrame implements MouseListener {
     //Container c;
     //JButton bot=new JButton("START");
-    Time time=new Time(this);
-    Hole[] hole = new Hole[6];//宣告一個Hole的陣列
+    Time time = new Time(this);
+    Hole[] hole = new Hole[6];  // 宣告一個Hole的陣列
     Rat rat;
-    public Window(){
+    public Window() {
         super("打地鼠");
-        setSize(600,420);//設定size，顯示出去
+        setSize(600,420);  // 設定size，顯示出去
         setVisible(true);
         this.setResizable(false);
-        this.setLocationRelativeTo(null); //讓視窗置中
+        this.setLocationRelativeTo(null); // 讓視窗置中
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addMouseListener(this);//在這個視窗上加入滑鼠監聽器
+        addMouseListener(this);  // 在這個視窗上加入滑鼠監聽器
 
         //c=getContentPane();//取得ContentPane
         //c.setLayout(new FlowLayout());
         //c.add(bot);
         
-        for(int i=0;i<6;i++){
-            hole[i]=new Hole(this);//初始化hole
+        for(int i = 0; i < 6; i++){
+            hole[i] = new Hole(this);  // 初始化hole
         }
-        hole[0].setHole(100,100);
-        hole[1].setHole(250,100);
-        hole[2].setHole(400,100);
-        hole[3].setHole(100,250);
-        hole[4].setHole(250,250);
-        hole[5].setHole(400,250);
+        int[][] coordinates = {{100, 100}, {250, 100}, {400, 100}, {100, 250}, {250, 250}, {400, 250}};  // 洞的座標
+        for(int i = 0; i < 6; i++){
+            hole[i].setHole(coordinates[i][0], coordinates[i][1]);
+        }
 
-        int i=(int)(Math.random()*6);//隨機選一個洞0~5
-        rat = new Rat(hole[i],this);//初始化rat
+        int i = (int)(Math.random() * 6);  // 隨機選一個洞0~5
+        rat = new Rat(hole[i], this);  // 初始化rat
     }
    
-    public void paint(Graphics g){
-        super.paint(g);//畫出元件
+    public void paint(Graphics g) {
+        super.paint(g);  // 畫出元件
         Graphics2D g2d = (Graphics2D) g;
         time.paint(g2d);
-        for(int i=0;i<6;i++){
-            hole[i].paint(g2d);//畫出6個hole
+        for(int i = 0; i < 6; i++){
+            hole[i].paint(g2d);  // 畫出6個hole
         }
-        rat.paint(g2d);//畫出rat
+        rat.paint(g2d);  // 畫出rat
     }
 
  
     @Override
     public void mouseClicked(MouseEvent e) {}
 
-    public void mousePressed(MouseEvent e)  {
+    public void mousePressed(MouseEvent e) {
         rat.mousePressed(e);
-        if(rat.dead()){
-            int i=(int)(Math.random()*6);
+        if(rat.dead()) {
+            int i=(int)(Math.random() * 6);
             rat = new Rat(hole[i],this);
             this.repaint(hole[i].x+25,hole[i].y+25,50,50);
             time.plusTime();
@@ -80,10 +78,8 @@ public class Window extends JFrame implements MouseListener{
     public void mouseExited(MouseEvent e) {}
     
     /***主程式***/
-    public static void main(String args[]){
-        Window game=new Window(); 
-        
-        //game.gameOver();
+    public static void main(String args[]) {
+        Window game = new Window(); 
     }
 }
 
