@@ -33,13 +33,17 @@ public class Rat extends JPanel{
         else return false;
     }
     
+    public void reduceHp(){
+        hp--;
+    }
+
     public void mousePressed(MouseEvent e){
         int mx = e.getX();
         int my = e.getY();
         if(e.getButton()==MouseEvent.BUTTON1){//左鍵
             if((hole.x-mx+50)*(hole.x-mx+50)+(hole.y-my+50)*(hole.y-my+50)<=2500 && hp>0){
                 System.out.println("hit");
-                hp--;
+                reduceHp();
                 window.repaint(hole.x+25,hole.y+25,50,50);
             }
         }
