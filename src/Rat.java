@@ -7,12 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 public class Rat extends JPanel {
-    Hole hole;
+    Hole[] hole;
     int hp = (int)(Math.random() * 5) + 1;//生命值1~5隨機
-    
+    int i=(int)(Math.random() * 6);
     Window window;
 
-    Rat(Hole h, Window w) {
+    Rat(Hole[]h, Window w) {
         this.hole = h;
         this.window = w;
     }
@@ -21,14 +21,18 @@ public class Rat extends JPanel {
         if(hp > 0) {
             g.setColor(new Color(237,40,0)); //畫筆顏色
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    g.drawString(String.valueOf(hp), hole.x+32, hole.y+68);
+		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
     }
 
+    public void born() {
+        hp = (int)(Math.random() * 5) + 1;
+        i = (int)(Math.random() * 6);
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
+    }
+    
     public boolean dead() { 
-        if(hp == 0) {
-            return true;
-        }
+        if(hp == 0) return true;
         else return false;
     }
     
@@ -40,10 +44,10 @@ public class Rat extends JPanel {
         int mx = e.getX();
         int my = e.getY();
         if(e.getButton() == MouseEvent.BUTTON1) {  // 左鍵
-            if((hole.x - mx + 50) * (hole.x - mx + 50) + (hole.y - my + 50) * (hole.y - my + 50) <= 2500 && hp > 0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 reduceHp();
-                window.repaint(hole.x+25, hole.y+25, 50, 50);
+                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
             }
         }
     }

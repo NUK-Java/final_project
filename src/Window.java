@@ -41,7 +41,7 @@ public class Window extends JFrame implements MouseListener {
         }
 
         int i = (int)(Math.random() * 6);  // 隨機選一個洞0~5
-        rat = new Rat(hole[i], this);  // 初始化rat
+        rat = new Rat(hole, this);  // 初始化rat
     }
    
     public void paint(Graphics g) {
@@ -60,10 +60,8 @@ public class Window extends JFrame implements MouseListener {
     public void mousePressed(MouseEvent e) {
         rat.mousePressed(e);
         if(rat.dead()) {
-            int i=(int)(Math.random() * 6);
-            rat = new Rat(hole[i],this);
             time.plusTime();
-            this.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
+            rat.born();
         }
     }
 
