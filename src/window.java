@@ -15,7 +15,7 @@ import java.lang.Math;
 public class window extends JFrame implements MouseListener{
     //Container c;
     //JButton bot=new JButton("START");
-    Time time=new Time(this);
+    Time time = new Time(this);
     Hole[] hole = new Hole[6];//宣告一個Hole的陣列
     Rat rat;
     public window(){
@@ -34,12 +34,11 @@ public class window extends JFrame implements MouseListener{
         for(int i=0;i<6;i++){
             hole[i]=new Hole(this);//初始化hole
         }
-        hole[0].setHole(100,100);
-        hole[1].setHole(250,100);
-        hole[2].setHole(400,100);
-        hole[3].setHole(100,250);
-        hole[4].setHole(250,250);
-        hole[5].setHole(400,250);
+        int[][] coordinates = {{100, 100}, {250, 100}, {400, 100}, {100, 250}, {250, 250}, {400, 250}};
+
+        for(int i = 0; i < 6; i++){
+            hole[i].setHole(coordinates[i][0], coordinates[i][1]);
+        }
 
         int i=(int)(Math.random()*6);//隨機選一個洞0~5
         rat = new Rat(hole[i],this);//初始化rat
