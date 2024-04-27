@@ -17,8 +17,10 @@ public class Rat extends JPanel{
         this.window = w;
     }
     
-    public void paint(Graphics g) {
+    @Override
+    protected void paintComponent(Graphics g) {
         if(hp>0){
+            super.paintComponent(g);
             g.setColor(new Color(237,40,0)); //畫筆顏色
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
 		    g.drawString(String.valueOf(hp), hole.x+32, hole.y+68);
@@ -44,7 +46,7 @@ public class Rat extends JPanel{
             if((hole.x-mx+50)*(hole.x-mx+50)+(hole.y-my+50)*(hole.y-my+50)<=2500 && hp>0){
                 System.out.println("hit");
                 reduceHp();
-                window.repaint(hole.x+25,hole.y+25,50,50);
+                this.repaint();
             }
         }
     }
