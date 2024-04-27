@@ -5,18 +5,17 @@ public class Hole extends JPanel{
     protected int x;
     protected int y;
 
-    public Hole(window w) {
+    public Hole(Window w) {
         this.x = 0;
         this.y = 0;
     }
     
-    public void setHole(int x,int y) {
+    public void setHole(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
     public void paint(Graphics2D g) {
-        g.drawOval(this.x,this.y,100,100);  // 畫外緣
-        // g.fillOval(hole[i].x,hole[i].y,100,100);  // 填滿圓
+        g.drawOval(this.x, this.y, 100,100);  // 畫外緣
     }
 }

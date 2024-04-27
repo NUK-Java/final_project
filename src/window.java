@@ -2,6 +2,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JComponent;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -12,13 +13,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.Math; 
 
-public class window extends JFrame implements MouseListener {
+public class Window extends JFrame implements MouseListener {
     //Container c;
     //JButton bot=new JButton("START");
     Time time = new Time(this);
     Hole[] hole = new Hole[6];  // 宣告一個Hole的陣列
     Rat rat;
-    public window(){
+    public Window() {
         super("打地鼠");
         setSize(600,420);  // 設定size，顯示出去
         setVisible(true);
@@ -53,19 +54,17 @@ public class window extends JFrame implements MouseListener {
         rat.paint(g2d);  // 畫出rat
     }
 
-    public void gameOver() {
-        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION);
-        System.exit(ABORT);
-    }
  
     @Override
     public void mouseClicked(MouseEvent e) {}
 
     public void mousePressed(MouseEvent e) {
         rat.mousePressed(e);
-        if(rat.dead()){
-            int i=(int)(Math.random()*6);
+        if(rat.dead()) {
+            int i=(int)(Math.random() * 6);
             rat = new Rat(hole[i],this);
+            this.repaint(hole[i].x+25,hole[i].y+25,50,50);
+            time.plusTime();
         }
     }
 
@@ -80,8 +79,7 @@ public class window extends JFrame implements MouseListener {
     
     /***主程式***/
     public static void main(String args[]) {
-        window game = new window(); 
-        //game.gameOver();
+        Window game = new Window(); 
     }
 }
 
