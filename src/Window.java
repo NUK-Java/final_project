@@ -17,11 +17,11 @@ public class Window extends JFrame implements MouseListener {
     //Container c;
     //JButton bot=new JButton("START");
     Time time = new Time(this);
-    Hole[] hole = new Hole[6];  // 宣告一個Hole的陣列
+    Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
     Rat rat;
     public Window() {
         super("打地鼠");
-        setSize(600,420);  // 設定size，顯示出去
+        setSize(800,560);  // 設定size，顯示出去
         setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null); // 讓視窗置中
@@ -32,13 +32,15 @@ public class Window extends JFrame implements MouseListener {
         //c.setLayout(new FlowLayout());
         //c.add(bot);
         
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 7; i++){
             hole[i] = new Hole(this);  // 初始化hole
         }
-        int[][] coordinates = {{100, 100}, {250, 100}, {400, 100}, {100, 250}, {250, 250}, {400, 250}};  // 洞的座標
+        int[][] coordinates = {{360, 100},{233, 175},{488, 175},{233, 325}, {488, 325}, {360, 395}};  // 洞的座標
+        int[][] bossCoordinate = {{335,225}};
         for(int i = 0; i < 6; i++){
             hole[i].setHole(coordinates[i][0], coordinates[i][1]);
         }
+        hole[6].setHole(bossCoordinate[0][0], bossCoordinate[0][1]);
 
         int i = (int)(Math.random() * 6);  // 隨機選一個洞0~5
         rat = new Rat(hole[i], this);  // 初始化rat
@@ -51,6 +53,7 @@ public class Window extends JFrame implements MouseListener {
         for(int i = 0; i < 6; i++){
             hole[i].paint(g2d);  // 畫出6個hole
         }
+        hole[6].bossPaint(g2d);
         rat.paint(g2d);  // 畫出rat
     }
 
