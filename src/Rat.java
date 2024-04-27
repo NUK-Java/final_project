@@ -43,7 +43,7 @@ public class Rat extends JPanel {
             if((hole.x - mx + 50) * (hole.x - mx + 50) + (hole.y - my + 50) * (hole.y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 reduceHp();
-                this.repaint();
+                window.repaint(hole.x+25, hole.y+25, 50, 50);
             }
         }
     }

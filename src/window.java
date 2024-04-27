@@ -63,6 +63,7 @@ public class Window extends JFrame implements MouseListener {
             int i=(int)(Math.random() * 6);
             rat = new Rat(hole[i],this);
             time.plusTime();
+            this.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
         }
     }
 
