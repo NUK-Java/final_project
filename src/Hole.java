@@ -1,7 +1,7 @@
 import javax.swing.JPanel;
 import java.awt.Graphics2D;
 
-public class Hole extends JPanel{
+public class Hole extends JPanel {
     protected int x;
     protected int y;
 

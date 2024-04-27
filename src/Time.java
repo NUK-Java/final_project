@@ -7,14 +7,14 @@ import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Time extends JLabel{
+public class Time extends JLabel {
     Window window;
     int sec = 5;
     int surviveTime = sec;
 
     Timer timer = new Timer();
-    TimerTask task = new TimerTask(){
-        public void run(){
+    TimerTask task = new TimerTask() {
+        public void run() {
             sec--;
             if(sec > 0) window.repaint(286,50,50,30);
             else {
