@@ -10,7 +10,7 @@ import java.util.TimerTask;
 public class Time extends JLabel{
     Window window;
     int sec = 5;
-    int survive_time = sec;
+    int surviveTime = sec;
 
     Timer timer = new Timer();
     TimerTask task = new TimerTask(){
@@ -36,12 +36,12 @@ public class Time extends JLabel{
     }
 
     public void plusTime() {
-        sec+=1;
-        survive_time+=1;
+        sec += 1;
+        surviveTime += 1;
     }
 
     public void gameOver() {
-        JOptionPane.showMessageDialog(window, "Your total survive time：" + survive_time, "Game Over", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showMessageDialog(window, "Your total survive time：" + surviveTime, "Game Over", JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }
 }
