@@ -13,7 +13,7 @@ public class Time extends JLabel {
     int surviveTime = sec;
 
     Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
+    TimerTask task = new TimerTask() { // Add opening curly brace here
         public void run() {
             sec--;
             if(sec > 0) window.repaint(286,50,50,30);
@@ -22,11 +22,11 @@ public class Time extends JLabel {
                 timer.cancel();
             }
         }
-    };
-
+    }; // Add closing curly brace here
+    
     Time(Window w) {
         this.window = w;
-        timer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動Timer
+        timer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
     }
 
     public void paint(Graphics2D g) {
@@ -39,6 +39,8 @@ public class Time extends JLabel {
         sec += 1;
         surviveTime += 1;
     }
+    
+  
 
     public void gameOver() {
         JOptionPane.showMessageDialog(window, "Your total survive time：" + surviveTime, "Game Over", JOptionPane.YES_NO_OPTION);

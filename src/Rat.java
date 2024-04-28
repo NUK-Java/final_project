@@ -9,12 +9,13 @@ import java.awt.event.MouseEvent;
 public class Rat extends JPanel {
     Hole[] hole;
     int hp = (int)(Math.random() * 5) + 1;//生命值1~5隨機
-    int i=(int)(Math.random() * 6);
+    int i;
     Window window;
 
     Rat(Hole[]h, Window w) {
         this.hole = h;
         this.window = w;
+        this.choosehole();
     }
     
     public void paint(Graphics g) {
@@ -24,15 +25,28 @@ public class Rat extends JPanel {
 		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
     }
+    
+    public void choosehole() {
+        i = (int)(Math.random() * 6);
+        if (hole[i].isRat == true){      
+            this.choosehole();
+        }
+        else{
+            hole[i].isRat = true;
+        }
+    }
 
     public void born() {
         hp = (int)(Math.random() * 5) + 1;
-        i = (int)(Math.random() * 6);
+        this.choosehole();
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
     }
     
     public boolean dead() { 
-        if(hp == 0) return true;
+        if(hp == 0) {
+            hole[i].isRat = false;
+            return true;
+        }
         else return false;
     }
     
@@ -46,7 +60,7 @@ public class Rat extends JPanel {
         if(e.getButton() == MouseEvent.BUTTON1) {  // 左鍵
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
-                reduceHp();
+                this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
             }
         }
