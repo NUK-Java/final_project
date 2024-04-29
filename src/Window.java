@@ -92,7 +92,9 @@ public class Window extends JFrame implements MouseListener {
 
     public void mousePressed(MouseEvent e) {
         for(int i=0;i<3;i++){
-            NormalRat[i].mousePressed(e);
+            if(NormalRat[i] != null){
+                NormalRat[i].mousePressed(e);
+            }
         }
         if (bossRat != null) {
             bossRat.mousePressed(e);
