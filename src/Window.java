@@ -45,7 +45,7 @@ public class Window extends JFrame implements MouseListener {
             public void run() {
                 System.out.println(DuringTime);
                 DuringTime++;
-                if (DuringTime >= 5) {                              // 遊戲時間到50秒時，出現BossRat，測試先用5秒
+                if (DuringTime >= 5 && bossRat == null) {            // 遊戲時間到50秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                 }
                 if (time.sec <= 0) {
