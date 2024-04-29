@@ -14,6 +14,7 @@ public class Time extends JLabel {
     Timer Sectimer = new Timer();
     TimerTask task = new TimerTask() { // Add opening curly brace here
         public void run() {
+            window.repaint(400,50,50,30);
             sec--;
             if(sec > 0) window.repaint(400,50,50,30);
             else {

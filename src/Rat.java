@@ -28,12 +28,13 @@ public class Rat extends JPanel {
     };
 
     Rat(Hole[]h, Time t, Window w) {
-        this.during=3;
+        this.during = 3;
         this.hp = (int)(Math.random() * 5) + 1;
         this.hole = h;
         this.time = t;
         this.window = w;
         this.choosehole();
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
     }
     
@@ -64,10 +65,11 @@ public class Rat extends JPanel {
     }
 
     public void attack() {
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
         time.sec-=hp;
+        hp = 0;
         //if(time.sec<=0) time.gameOver();
         hole[i].isRat = false;
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
         born();//攻擊後重生
     }
 

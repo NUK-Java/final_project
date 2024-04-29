@@ -36,21 +36,22 @@ public class Window extends JFrame implements MouseListener {
             hole[i].setCoordinates(coordinates[i][0], coordinates[i][1]);
         }
         hole[6].setCoordinates(bossCoordinate[0][0], bossCoordinate[0][1]);
-        
-        for(int i=0;i<3;i++){
-            NormalRat[i] = new Rat(hole, time, this);
-        }
 
         TimerTask task = new TimerTask() {
             public void run() {
+                
+                generateNormalRat();
+
                 System.out.println(DuringTime);
                 DuringTime++;
+
                 if (DuringTime >= 5 && bossRat == null) {            // 遊戲時間到50秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                 }
                 if (time.sec <= 0) {
                     Duringtimer.cancel();
-                }
+                }     
+
             }
         };
         Duringtimer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
@@ -64,11 +65,24 @@ public class Window extends JFrame implements MouseListener {
             hole[i].paint(g2d);  // 畫出6個hole
         }
         hole[6].bossPaint(g2d);
-        for(int i=0;i<3;i++){
-            NormalRat[i].paint(g2d);
+        
+        for(int i = 0; i < 3; i++){
+            if(NormalRat[i] != null){
+                NormalRat[i].paint(g2d);  // 畫出3隻NormalRat
+            }
         }
+
         if (bossRat != null) {
             bossRat.paint(g2d);
+        }
+    }
+
+    public void generateNormalRat() {
+        for (int i = 0; i < 3; i++) {
+            if (NormalRat[i] == null) {
+                NormalRat[i] = new Rat(hole, time, window);
+                break;
+            }
         }
     }
 

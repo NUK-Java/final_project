@@ -32,8 +32,8 @@ public class BossRat extends JPanel {
     BossRat(Hole []h, Time t, Window w) {
         this.during = 30;
         this.hp = 50;
-        this.x = 340; // x座標設定為正中間
-        this.y = 245; // y座標設定為正中間
+        this.x = 335; // x座標設定為正中間
+        this.y = 225; // y座標設定為正中間
         this.time = t;
         this.window = w;
         this.isAlive = true;
@@ -46,7 +46,7 @@ public class BossRat extends JPanel {
         if (isAlive) {
             g.setColor(new Color(40, 237, 0)); // 畫筆顏色
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
-            g.drawString(String.valueOf(hp), x + 32, y + 68);
+            g.drawString(String.valueOf(hp), x + 42, y + 88);
         }
     }
 
@@ -70,7 +70,7 @@ public class BossRat extends JPanel {
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint();
+                window.repaint(hole[6].x, hole[6].y, 150, 150);
                 if(this.dead()) {  // 如果boss死了，遊戲結束
                     time.gameOver();
                 }
