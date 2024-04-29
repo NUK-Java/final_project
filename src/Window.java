@@ -1,15 +1,22 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.Math; 
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Window extends JFrame implements MouseListener {
-    Time time = new Time(this);
+    Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
-    Rat rat,rat1;
+    Rat[] NormalRat= new Rat[3];
+    Time time = new Time(this);
+    int DuringTime = 1;//遊戲進行時間
+    Timer Duringtimer = new Timer();
+    
     public Window() {
         super("打地鼠");
         setSize(800,560);  // 設定size，顯示出去
@@ -28,9 +35,19 @@ public class Window extends JFrame implements MouseListener {
             hole[i].setCoordinates(coordinates[i][0], coordinates[i][1]);
         }
         hole[6].setCoordinates(bossCoordinate[0][0], bossCoordinate[0][1]);
+        
+        for(int i=0;i<3;i++){
+            NormalRat[i] = new Rat(hole, time, this);
+        }
 
-        rat = new Rat(hole, time, this);  // 初始化rat
-        rat1 = new Rat(hole, time ,this);  // 初始化rat
+        TimerTask task = new TimerTask() {
+            public void run() {
+                System.out.println(DuringTime);
+                DuringTime++;
+                if(time.sec<=0) Duringtimer.cancel();
+            }
+        };
+        Duringtimer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
     }
    
     public void paint(Graphics g) {
@@ -41,16 +58,18 @@ public class Window extends JFrame implements MouseListener {
             hole[i].paint(g2d);  // 畫出6個hole
         }
         hole[6].bossPaint(g2d);
-        rat.paint(g2d);  // 畫出rat
-        rat1.paint(g2d);  // 畫出rat
+        for(int i=0;i<3;i++){
+            NormalRat[i].paint(g2d);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {}
 
     public void mousePressed(MouseEvent e) {
-        rat.mousePressed(e);
-        rat1.mousePressed(e);
+        for(int i=0;i<3;i++){
+            NormalRat[i].mousePressed(e);
+        }
     }
 
     @Override
