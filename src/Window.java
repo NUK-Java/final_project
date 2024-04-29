@@ -41,13 +41,14 @@ public class Window extends JFrame implements MouseListener {
             public void run() {
                 
                 generateNormalRat();
+                if (DuringTime >= 5 && bossRat == null) {            // 遊戲時間到50秒時，出現BossRat，測試先用5秒，
+                    bossRat = new BossRat(hole, time, window);
+                    window.repaint(hole[6].x, hole[6].y, 150, 150);
+                }
 
                 System.out.println(DuringTime);
                 DuringTime++;
 
-                if (DuringTime >= 5 && bossRat == null) {            // 遊戲時間到50秒時，出現BossRat，測試先用5秒，
-                    bossRat = new BossRat(hole, time, window);
-                }
                 if (time.sec <= 0) {
                     Duringtimer.cancel();
                 }     
