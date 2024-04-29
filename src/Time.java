@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class Time extends JLabel {
     Window window;
-    int sec = 20;//+1秒
+    int sec = 100;//+1秒
     
     Timer Sectimer = new Timer();
     TimerTask task = new TimerTask() { // Add opening curly brace here

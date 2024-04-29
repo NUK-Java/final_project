@@ -14,6 +14,7 @@ public class Window extends JFrame implements MouseListener {
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
     Rat[] NormalRat= new Rat[3];
     Time time = new Time(this);
+    BossRat bossRat;
     int DuringTime = 1;//遊戲進行時間
     Timer Duringtimer = new Timer();
     
@@ -44,7 +45,12 @@ public class Window extends JFrame implements MouseListener {
             public void run() {
                 System.out.println(DuringTime);
                 DuringTime++;
-                if(time.sec<=0) Duringtimer.cancel();
+                if (DuringTime >= 5) {                              // 遊戲時間到50秒時，出現BossRat，測試先用5秒
+                    bossRat = new BossRat(hole, time, window);
+                }
+                if (time.sec <= 0) {
+                    Duringtimer.cancel();
+                }
             }
         };
         Duringtimer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
@@ -61,6 +67,9 @@ public class Window extends JFrame implements MouseListener {
         for(int i=0;i<3;i++){
             NormalRat[i].paint(g2d);
         }
+        if (bossRat != null) {
+            bossRat.paint(g2d);
+        }
     }
 
     @Override
@@ -69,6 +78,9 @@ public class Window extends JFrame implements MouseListener {
     public void mousePressed(MouseEvent e) {
         for(int i=0;i<3;i++){
             NormalRat[i].mousePressed(e);
+        }
+        if (bossRat != null) {
+            bossRat.mousePressed(e);
         }
     }
 
