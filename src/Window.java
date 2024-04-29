@@ -1,11 +1,4 @@
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
-
-import java.awt.Container;
-import java.awt.FlowLayout;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -36,8 +29,8 @@ public class Window extends JFrame implements MouseListener {
         }
         hole[6].setCoordinates(bossCoordinate[0][0], bossCoordinate[0][1]);
 
-        rat = new Rat(hole, this);  // 初始化rat
-        rat1 = new Rat(hole, this);  // 初始化rat
+        rat = new Rat(hole, time, this);  // 初始化rat
+        rat1 = new Rat(hole, time ,this);  // 初始化rat
     }
    
     public void paint(Graphics g) {
@@ -58,14 +51,6 @@ public class Window extends JFrame implements MouseListener {
     public void mousePressed(MouseEvent e) {
         rat.mousePressed(e);
         rat1.mousePressed(e);
-        if(rat.dead()) {
-            time.plusTime();
-            rat.born();
-        }
-        if(rat1.dead()) {
-            time.plusTime();
-            rat1.born();
-        }
     }
 
     @Override

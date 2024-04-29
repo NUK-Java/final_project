@@ -7,13 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 public class Rat extends JPanel {
-    Hole[] hole;
+    int during=3; //存在時間
     int hp = (int)(Math.random() * 5) + 1;//生命值1~5隨機
-    int i;
-    Window window;
-
-    Rat(Hole[]h, Window w) {
+    int i;//洞的index
+    Hole[] hole;
+    Time time;
+    Window window;  
+    Rat(Hole[]h, Time t, Window w) {
         this.hole = h;
+        this.time = t;
         this.window = w;
         this.choosehole();
     }
@@ -45,6 +47,7 @@ public class Rat extends JPanel {
     public boolean dead() { 
         if(hp == 0) {
             hole[i].isRat = false;
+            time.plusTime();
             return true;
         }
         else return false;
@@ -62,6 +65,9 @@ public class Rat extends JPanel {
                 System.out.println("hit");
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+            }
+            if(this.dead()){
+                this.born();
             }
         }
     }
