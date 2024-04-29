@@ -67,11 +67,11 @@ public class BossRat extends JPanel {
         int mx = e.getX();
         int my = e.getY();
         if(e.getButton() == MouseEvent.BUTTON1) {  // 左鍵
-            if((hole[6].x - mx + 50) * (hole[6].x - mx + 50) + (hole[6].y - my + 50) * (hole[6].y - my + 50) <= 2500 && hp > 0) {
+            if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
                 window.repaint();
-                if(this.dead()){  // 如果boss死了，遊戲結束
+                if(this.dead()) {  // 如果boss死了，遊戲結束
                     time.gameOver();
                 }
             }
