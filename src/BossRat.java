@@ -40,6 +40,7 @@ public class BossRat extends JPanel {
         this.isAlive = true;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
+        window.repaint(hole[6].x, hole[6].y, 150, 150);
     }
 
     public void paint(Graphics g) {

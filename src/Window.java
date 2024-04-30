@@ -40,21 +40,19 @@ public class Window extends JFrame implements MouseListener {
         }
         hole[6].setCoordinates(bossCoordinate[0][0], bossCoordinate[0][1]);
 
-        TimerTask task = new TimerTask() {
+        TimerTask task = new TimerTask() { //這個跑完才換其他timer跑
             public void run() {
                 generateNormalRat();
-                if (DuringTime >= 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime == 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
-                    window.repaint(hole[6].x, hole[6].y, 150, 150);
+                    
                 }
-                else if(DuringTime % 5 == 0 && smallBossRat == null && bossRat == null){    // 遊戲時間每到30秒時，出現SmallBossRat，測試用5秒
+                else if(DuringTime == 30 && smallBossRat == null && bossRat == null){ //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
                     smallBossRat = new SmallBossRat(hole, time, window);
-                    window.repaint(hole[6].x, hole[6].y, 150, 150);
                 }
-
                 System.out.println(DuringTime);
                 DuringTime++;
-
+                
                 if (time.sec <= 0) {
                     Duringtimer.cancel();
                 }     
