@@ -60,7 +60,6 @@ public class BossRat extends JPanel {
 
     public void reduceHp() {
         hp--;
-        repaint();
     }
 
     public void mousePressed(MouseEvent e) {
