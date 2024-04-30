@@ -10,11 +10,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Window extends JFrame implements MouseListener {
+
     Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
     Rat[] NormalRat= new Rat[3];
     Time time = new Time(this);
     BossRat bossRat;
+    SmallBossRat smallBossRat;
+
     int DuringTime = 1;//遊戲進行時間
     Timer Duringtimer = new Timer();
     
@@ -41,8 +44,12 @@ public class Window extends JFrame implements MouseListener {
             public void run() {
                 
                 generateNormalRat();
-                if (DuringTime >= 5 && bossRat == null) {            // 遊戲時間到50秒時，出現BossRat，測試先用5秒，
+                if (DuringTime >= 90 && bossRat == null) {            // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
+                    window.repaint(hole[6].x, hole[6].y, 150, 150);
+                }
+                else if(DuringTime % 5 == 0 && smallBossRat == null && bossRat == null){    // 遊戲時間到30秒時，出現SmallBossRat，測試用5秒
+                    smallBossRat = new SmallBossRat(hole, time, window);
                     window.repaint(hole[6].x, hole[6].y, 150, 150);
                 }
 
@@ -76,6 +83,9 @@ public class Window extends JFrame implements MouseListener {
         if (bossRat != null) {
             bossRat.paint(g2d);
         }
+        if (smallBossRat != null) {
+            smallBossRat.paint(g2d);
+        }
     }
 
     public void generateNormalRat() {
@@ -98,6 +108,9 @@ public class Window extends JFrame implements MouseListener {
         }
         if (bossRat != null) {
             bossRat.mousePressed(e);
+        }
+        if(smallBossRat != null){
+            smallBossRat.mousePressed(e);
         }
     }
 
