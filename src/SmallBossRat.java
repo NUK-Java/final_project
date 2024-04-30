@@ -25,6 +25,9 @@ public class SmallBossRat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
+            if(during==0){
+                attack();
+            }
             during--;
             if (time.sec <= 0) {
                 T.cancel();
@@ -34,7 +37,7 @@ public class SmallBossRat extends JPanel {
     };
 
     SmallBossRat(Hole []h, Time t, Window w) {
-        this.during = 20;
+        this.during = 10;
         this.hp = 30;
         this.x = 335; // x座標設定為正中間
         this.y = 225; // y座標設定為正中間

@@ -21,6 +21,7 @@ public class BossRat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
+            
             during--;
             if (time.sec <= 0) {
                 T.cancel();

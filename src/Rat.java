@@ -19,10 +19,10 @@ public class Rat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() { 
         public void run() {
-            during--;
             if(during==0){
                 attack();
             }
+            during--;
             if(time.sec<=0) T.cancel();
         }
     };
@@ -69,7 +69,7 @@ public class Rat extends JPanel {
         hp = 0;
         //if(time.sec<=0) time.gameOver();
         hole[i].isRat = false;
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
         born();//攻擊後重生
     }
 
@@ -94,7 +94,6 @@ public class Rat extends JPanel {
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
                     time.sec++;
-                    this.born();
                 }
             }
         }

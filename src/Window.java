@@ -42,13 +42,12 @@ public class Window extends JFrame implements MouseListener {
 
         TimerTask task = new TimerTask() {
             public void run() {
-                
                 generateNormalRat();
-                if (DuringTime >= 90 && bossRat == null) {            // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime >= 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                     window.repaint(hole[6].x, hole[6].y, 150, 150);
                 }
-                else if(DuringTime % 5 == 0 && smallBossRat == null && bossRat == null){    // 遊戲時間到30秒時，出現SmallBossRat，測試用5秒
+                else if(DuringTime % 5 == 0 && smallBossRat == null && bossRat == null){    // 遊戲時間每到30秒時，出現SmallBossRat，測試用5秒
                     smallBossRat = new SmallBossRat(hole, time, window);
                     window.repaint(hole[6].x, hole[6].y, 150, 150);
                 }
@@ -83,6 +82,7 @@ public class Window extends JFrame implements MouseListener {
         if (bossRat != null) {
             bossRat.paint(g2d);
         }
+        
         if (smallBossRat != null) {
             smallBossRat.paint(g2d);
         }
@@ -92,7 +92,7 @@ public class Window extends JFrame implements MouseListener {
         for (int i = 0; i < 3; i++) {
             if (NormalRat[i] == null) {
                 NormalRat[i] = new Rat(hole, time, window);
-                break;
+                break;//生成一隻就跳出迴圈 
             }
         }
     }
