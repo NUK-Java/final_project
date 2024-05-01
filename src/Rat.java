@@ -89,7 +89,7 @@ public class Rat extends JPanel {
         hp--;
     }
 
-    boolean in=false;
+  
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
@@ -113,14 +113,19 @@ public class Rat extends JPanel {
                 }
             }
         }
+        
+    }
 
+    boolean in=false;
+    public void mouseMoved(MouseEvent e) {  
+        int mx = e.getX();
+        int my = e.getY();
         if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0 && in==false && mode==2) {
-            in=true;
-            System.out.println("cut");
+            in=true; 
         }
         if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && hp > 0 && in==true && mode==2) {
-            in=false;
             System.out.println("cut");
+            in=false;
             this.reduceHp();
             window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
             if(this.dead()){
@@ -128,5 +133,4 @@ public class Rat extends JPanel {
             }
         }
     }
-
 }

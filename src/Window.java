@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.awt.event.MouseMotionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Window extends JFrame implements MouseListener {
+public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
     Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
@@ -29,7 +29,7 @@ public class Window extends JFrame implements MouseListener {
         this.setLocationRelativeTo(null); // 讓視窗置中
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         addMouseListener(this);  // 在這個視窗上加入滑鼠監聽器
-        
+        addMouseMotionListener(this);
         for(int i = 0; i < 7; i++){
             hole[i] = new Hole(this);  // 初始化hole
         }
@@ -125,10 +125,27 @@ public class Window extends JFrame implements MouseListener {
        
     }
     
+    @Override
+    public void mouseDragged(MouseEvent e) {
+     
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        for(int i=0;i<3;i++){
+            if(NormalRat[i] != null){
+                NormalRat[i].mouseMoved(e);
+            }
+        }
+
+    }
+
     /***主程式***/
     public static void main(String args[]) {
         Window game = new Window(); 
     }
+
+    
 }
 
  
