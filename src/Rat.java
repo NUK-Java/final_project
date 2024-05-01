@@ -24,7 +24,6 @@ public class Rat extends JPanel {
                 attack();
             }
             during--;
-            if(time.sec<=0) T.cancel();
         }
     };
 
@@ -69,10 +68,10 @@ public class Rat extends JPanel {
     }
 
     public void attack() {
+        hole[i].isRat = false;
         time.sec-=hp;
         hp = 0;
         //if(time.sec<=0) time.gameOver();
-        hole[i].isRat = false;
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
         born();//攻擊後重生
     }
@@ -119,10 +118,10 @@ public class Rat extends JPanel {
         int mx = e.getX();
         int my = e.getY();
         if(mode==2){
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false &&hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false && hp>0) {
                 in=true; 
             }
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true &&hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true && hp>0) {
                 System.out.println("cut");
                 in=false;
                 this.reduceHp();

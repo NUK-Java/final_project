@@ -95,6 +95,25 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
         }
     }
 
+    public void resetgame(){
+        for(int i=0;i<3;i++){
+            if(NormalRat[i] != null){
+                NormalRat[i].T.cancel();
+                NormalRat[i] = null;
+            }
+        }
+        if (bossRat != null) {
+            bossRat.T.cancel();
+            bossRat = null;
+        }
+        if (smallBossRat != null) {
+            smallBossRat.T.cancel();
+            smallBossRat = null;
+        }
+        time.Sectimer.cancel();
+        Duringtimer.cancel();
+    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {}
 
