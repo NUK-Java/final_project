@@ -116,6 +116,7 @@ public class Rat extends JPanel {
 
         if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0 && in==false && mode==2) {
             in=true;
+            System.out.println("cut");
         }
         if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && hp > 0 && in==true && mode==2) {
             in=false;
