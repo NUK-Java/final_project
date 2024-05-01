@@ -61,7 +61,7 @@ public class Rat extends JPanel {
     }
 
     public boolean dead() { 
-        if(hp == 0) {
+        if(hp <= 0) {
             hole[i].isRat = false;
             return true;
         }
@@ -89,7 +89,6 @@ public class Rat extends JPanel {
         hp--;
     }
 
-  
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
@@ -103,7 +102,7 @@ public class Rat extends JPanel {
                 }
             }
         }
-        else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
+        if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
@@ -113,24 +112,26 @@ public class Rat extends JPanel {
                 }
             }
         }
-        
     }
 
     boolean in=false;
     public void mouseMoved(MouseEvent e) {  
         int mx = e.getX();
         int my = e.getY();
-        if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0 && in==false && mode==2) {
-            in=true; 
-        }
-        if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && hp > 0 && in==true && mode==2) {
-            System.out.println("cut");
-            in=false;
-            this.reduceHp();
-            window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
-            if(this.dead()){
-                time.sec++;
+        if(mode==2){
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false &&hp>0) {
+                in=true; 
+            }
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true &&hp>0) {
+                System.out.println("cut");
+                in=false;
+                this.reduceHp();
+                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                if(this.dead()){
+                    time.sec++;
+                }
             }
         }
+        
     }
 }
