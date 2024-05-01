@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Rat extends JPanel {
+    int mode;
     int during; //存在時間
     int hp;//生命值1~5隨機
     int i;//洞的index
@@ -28,6 +29,7 @@ public class Rat extends JPanel {
     };
 
     Rat(Hole[]h, Time t, Window w) {
+        this.mode=(int)(Math.random() * 3) ;
         this.during = 3;
         this.hp = (int)(Math.random() * 5) + 1;
         this.hole = h;
@@ -40,7 +42,9 @@ public class Rat extends JPanel {
     
     public void paint(Graphics g) {
         if(hp > 0) {
-            g.setColor(new Color(237,40,0)); //畫筆顏色
+            if(mode==0) g.setColor(new Color(255,0,0)); //紅
+            else if(mode==1) g.setColor(new Color(0,0,255));//藍
+            else if(mode==2) g.setColor(new Color(255,255,0));//黃
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
 		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
@@ -74,6 +78,7 @@ public class Rat extends JPanel {
     }
 
     public void born() {
+        this.mode=(int)(Math.random() * 3) ;
         this.during=3;
         hp = (int)(Math.random() * 5) + 1;
         this.choosehole();
@@ -84,10 +89,11 @@ public class Rat extends JPanel {
         hp--;
     }
 
+    boolean in=false;
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        if(e.getButton() == MouseEvent.BUTTON1) {  // 左鍵
+        if(e.getButton() == MouseEvent.BUTTON1 && mode==0) {  // 左鍵
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
@@ -97,5 +103,29 @@ public class Rat extends JPanel {
                 }
             }
         }
+        else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
+                System.out.println("hit");
+                this.reduceHp();
+                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                if(this.dead()){
+                    time.sec++;
+                }
+            }
+        }
+
+        if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0 && in==false && mode==2) {
+            in=true;
+        }
+        if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && hp > 0 && in==true && mode==2) {
+            in=false;
+            System.out.println("cut");
+            this.reduceHp();
+            window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+            if(this.dead()){
+                time.sec++;
+            }
+        }
     }
+
 }
