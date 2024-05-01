@@ -19,7 +19,7 @@ public class SmallBossRat extends JPanel {
     Window window;
     Hole[] hole;
 
-    boolean hit = false;
+    int mode;
 
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
@@ -39,6 +39,7 @@ public class SmallBossRat extends JPanel {
     SmallBossRat(Hole []h, Time t, Window w) {
         this.during = 21;//持續20秒(含) 
         this.hp = 30;
+        this.mode = (int)(Math.random() * 2);//0:紅(左鍵) 1:藍(右鍵)
         this.x = 335; // x座標設定為正中間
         this.y = 225; // y座標設定為正中間
         this.time = t;
@@ -51,7 +52,8 @@ public class SmallBossRat extends JPanel {
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
         if (hp>0) {
-            g.setColor(new Color(255,165,0)); // 畫筆顏色
+            if(mode==0) g.setColor(new Color(255,0,0)); // 畫筆顏色
+            else if (mode==1) g.setColor(new Color(0,0,255)); // 畫筆顏色
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
             g.drawString(String.valueOf(hp), x + 42, y + 88);
         }
@@ -86,20 +88,20 @@ public class SmallBossRat extends JPanel {
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        if(e.getButton() == MouseEvent.BUTTON1 && !hit) {  // 左鍵
+        if(e.getButton() == MouseEvent.BUTTON1 && mode==0) {  // 左鍵
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
-                hit = true;
+                mode = (int)(Math.random() * 2);
             }
         }
-        else if(e.getButton() == MouseEvent.BUTTON3 && hit) {  // 右鍵
+        else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
-                hit = false;
+                mode = (int)(Math.random() * 2);
             }
         }
     }

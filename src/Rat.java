@@ -58,24 +58,7 @@ public class Rat extends JPanel {
             hole[i].isRat = true;
         }
     }
-
-    public boolean dead() { 
-        if(hp <= 0) {
-            hole[i].isRat = false;
-            return true;
-        }
-        else return false;
-    }
-
-    public void attack() {
-        hole[i].isRat = false;
-        time.sec-=hp;
-        hp = 0;
-        //if(time.sec<=0) time.gameOver();
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
-        born();//攻擊後重生
-    }
-
+    
     public void born() {
         this.mode=(int)(Math.random() * 3) ;
         this.during=3;
@@ -83,6 +66,25 @@ public class Rat extends JPanel {
         this.choosehole();
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
     }
+
+    public boolean dead() { 
+        if(hp <= 0) {
+            //hole[i].isRat = false; //其實原本那隻0滴血還在這 有新的其他隻在這裡born的時候 原本這隻還沒選新洞 意外被repaint
+            //暫時改為三秒內這個洞不會再生老鼠 小bug
+            return true;
+        }
+        else return false;
+    }
+
+    public void attack() {
+        time.sec-=hp;
+        hp = 0;
+        //if(time.sec<=0) time.gameOver();
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
+        hole[i].isRat = false;
+        born();//攻擊後重生
+    }
+
    
     public void reduceHp() {
         hp--;
