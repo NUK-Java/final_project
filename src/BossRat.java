@@ -45,19 +45,12 @@ public class BossRat extends JPanel {
         this.isAlive = true;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
-        try {
-            // 讀取圖片
-            image = ImageIO.read(new File("C:/java project/final_project/src/mouse4.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
         
         if (isAlive) {
-            g.drawImage(image, x+15, y+20, image.getWidth()/6, image.getHeight()/6 , this);
             g.setColor(new Color(40, 237, 0)); // 畫筆顏色
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
             g.drawString(String.valueOf(hp), x + 42, y + 88);
