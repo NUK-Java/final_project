@@ -37,6 +37,7 @@ public class Time extends JLabel {
     }
     
     public void gameOver() {
+        this.window.resetgame();
         JOptionPane.showMessageDialog(this, "Your total survive time：" + window.DuringTime, "Game Over", JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }

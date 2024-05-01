@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.awt.event.MouseMotionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Window extends JFrame implements MouseListener {
+public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
     Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
@@ -29,7 +29,7 @@ public class Window extends JFrame implements MouseListener {
         this.setLocationRelativeTo(null); // 讓視窗置中
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         addMouseListener(this);  // 在這個視窗上加入滑鼠監聽器
-        
+        addMouseMotionListener(this);
         for(int i = 0; i < 7; i++){
             hole[i] = new Hole(this);  // 初始化hole
         }
@@ -43,7 +43,7 @@ public class Window extends JFrame implements MouseListener {
         TimerTask task = new TimerTask() { //這個跑完才換其他timer跑
             public void run() {
                 generateNormalRat();
-                if (DuringTime == 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime == 5 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                     
                 }
@@ -95,6 +95,25 @@ public class Window extends JFrame implements MouseListener {
         }
     }
 
+    public void resetgame(){
+        for(int i=0;i<3;i++){
+            if(NormalRat[i] != null){
+                NormalRat[i].T.cancel();
+                NormalRat[i] = null;
+            }
+        }
+        if (bossRat != null) {
+            bossRat.T.cancel();
+            bossRat = null;
+        }
+        if (smallBossRat != null) {
+            smallBossRat.T.cancel();
+            smallBossRat = null;
+        }
+        time.Sectimer.cancel();
+        Duringtimer.cancel();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {}
 
@@ -116,15 +135,36 @@ public class Window extends JFrame implements MouseListener {
     public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+      
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+       
+    }
     
+    @Override
+    public void mouseDragged(MouseEvent e) {
+     
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        for(int i=0;i<3;i++){
+            if(NormalRat[i] != null){
+                NormalRat[i].mouseMoved(e);
+            }
+        }
+
+    }
+
     /***主程式***/
     public static void main(String args[]) {
         Window game = new Window(); 
     }
+
+    
 }
 
  
