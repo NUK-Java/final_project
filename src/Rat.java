@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,15 +24,19 @@ public class Rat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() { 
         public void run() {
-            if(during==0){
+            if(during==0 && dead()) {
+                born();
+            }
+            else if(during==0){
                 attack();
             }
             during--;
+            if(time.sec<=0) T.cancel();
         }
     };
 
     Rat(Hole[]h, Time t, Window w) {
-        this.mode=(int)(Math.random() * 3) ;
+        this.mode=(int)(Math.random() * 3);
         this.during = 3;
         this.hp = (int)(Math.random() * 5) + 1;
         this.hole = h;
@@ -43,7 +51,7 @@ public class Rat extends JPanel {
         if(hp > 0) {
             if(mode==0) g.setColor(new Color(255,0,0)); //紅
             else if(mode==1) g.setColor(new Color(0,0,255));//藍
-            else if(mode==2) g.setColor(new Color(255,255,0));//黃
+            else if(mode==2) g.setColor(new Color(128,0,128));//紫
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
 		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
@@ -58,21 +66,23 @@ public class Rat extends JPanel {
             hole[i].isRat = true;
         }
     }
-    
-    public void born() {
-        this.mode=(int)(Math.random() * 3) ;
-        this.during=3;
-        hp = (int)(Math.random() * 5) + 1;
-        this.choosehole();
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
-    }
+
+    // public void choosehole() {
+    //     List<Integer> emptyHoles = new ArrayList<>();
+    //     for (int j = 0; j < 6; j++) {
+    //         if (!hole[j].isRat) {
+    //             emptyHoles.add(j);
+    //         }
+    //     }
+    //     if (emptyHoles.size() > 0) {
+    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
+    //         i = emptyHoles.get(randomIndex);
+    //         hole[i].isRat = true;
+    //     }
+    // }
 
     public boolean dead() { 
-        if(hp <= 0) {
-            hole[i].isRat = false; //其實原本那隻0滴血還在這 有新的其他隻在這裡born的時候 原本這隻還沒選新洞 意外被repaint
-            //暫時改為三秒內這個洞不會再生老鼠 小bug
-            return true;
-        }
+        if(hp <= 0) return true;
         else return false;
     }
 
@@ -80,11 +90,18 @@ public class Rat extends JPanel {
         time.sec-=hp;
         hp = 0;
         //if(time.sec<=0) time.gameOver();
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
         hole[i].isRat = false;
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
         born();//攻擊後重生
     }
 
+    public void born() {
+        this.choosehole();
+        this.mode=(int)(Math.random() * 3);
+        this.during=3;
+        hp = (int)(Math.random() * 5) + 1;
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
+    }
    
     public void reduceHp() {
         hp--;
@@ -99,6 +116,7 @@ public class Rat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
@@ -109,6 +127,7 @@ public class Rat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
@@ -120,15 +139,16 @@ public class Rat extends JPanel {
         int mx = e.getX();
         int my = e.getY();
         if(mode==2){
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false && hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false &&hp>0) {
                 in=true; 
             }
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true && hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true &&hp>0) {
                 System.out.println("cut");
                 in=false;
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
