@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,12 +54,25 @@ public class Rat extends JPanel {
         }
     }
     
+    // public void choosehole() {
+    //     i = (int)(Math.random() * 6);
+    //     if (hole[i].isRat == true){      
+    //         this.choosehole();
+    //     }
+    //     else{
+    //         hole[i].isRat = true;
+    //     }
+    // }
     public void choosehole() {
-        i = (int)(Math.random() * 6);
-        if (hole[i].isRat == true){      
-            this.choosehole();
+        List<Integer> emptyHoles = new ArrayList<>();
+        for (int j = 0; j < 6; j++) {
+            if (!hole[j].isRat) {
+                emptyHoles.add(j);
+            }
         }
-        else{
+        if (emptyHoles.size() > 0) {
+            int randomIndex = (int)(Math.random() * emptyHoles.size());
+            i = emptyHoles.get(randomIndex);
             hole[i].isRat = true;
         }
     }
