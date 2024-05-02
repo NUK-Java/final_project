@@ -24,8 +24,10 @@ public class Rat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() { 
         public void run() {
-            if(dead() && during==0) born();
-            if(during==0){
+            if(during==0 && dead()) {
+                born();
+            }
+            else if(during==0){
                 attack();
             }
             during--;
@@ -34,7 +36,7 @@ public class Rat extends JPanel {
     };
 
     Rat(Hole[]h, Time t, Window w) {
-        this.mode=(int)(Math.random() * 3) ;
+        this.mode=(int)(Math.random() * 3);
         this.during = 3;
         this.hp = (int)(Math.random() * 5) + 1;
         this.hole = h;
@@ -49,7 +51,7 @@ public class Rat extends JPanel {
         if(hp > 0) {
             if(mode==0) g.setColor(new Color(255,0,0)); //紅
             else if(mode==1) g.setColor(new Color(0,0,255));//藍
-            else if(mode==2) g.setColor(new Color(255,255,0));//黃
+            else if(mode==2) g.setColor(new Color(128,0,128));//紫
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
 		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
@@ -78,11 +80,22 @@ public class Rat extends JPanel {
     //     }
     // }
 
+    // public void choosehole() {
+    //     List<Integer> emptyHoles = new ArrayList<>();
+    //     for (int j = 0; j < 6; j++) {
+    //         if (!hole[j].isRat) {
+    //             emptyHoles.add(j);
+    //         }
+    //     }
+    //     if (emptyHoles.size() > 0) {
+    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
+    //         i = emptyHoles.get(randomIndex);
+    //         hole[i].isRat = true;
+    //     }
+    // }
+
     public boolean dead() { 
-        if(hp <= 0) {
-            hole[i].isRat = false;
-            return true;
-        }
+        if(hp <= 0) return true;
         else return false;
     }
 
@@ -96,10 +109,10 @@ public class Rat extends JPanel {
     }
 
     public void born() {
-        this.mode=(int)(Math.random() * 3) ;
+        this.choosehole();
+        this.mode=(int)(Math.random() * 3);
         this.during=3;
         hp = (int)(Math.random() * 5) + 1;
-        this.choosehole();
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
     }
    
@@ -116,6 +129,7 @@ public class Rat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
@@ -126,6 +140,7 @@ public class Rat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
@@ -146,6 +161,7 @@ public class Rat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
                 if(this.dead()){
+                    hole[i].isRat = false;
                     time.sec++;
                 }
             }
