@@ -24,6 +24,7 @@ public class Rat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() { 
         public void run() {
+            if(dead() && during==0) born();
             if(during==0){
                 attack();
             }
@@ -54,28 +55,28 @@ public class Rat extends JPanel {
         }
     }
     
-    // public void choosehole() {
-    //     i = (int)(Math.random() * 6);
-    //     if (hole[i].isRat == true){      
-    //         this.choosehole();
-    //     }
-    //     else{
-    //         hole[i].isRat = true;
-    //     }
-    // }
     public void choosehole() {
-        List<Integer> emptyHoles = new ArrayList<>();
-        for (int j = 0; j < 6; j++) {
-            if (!hole[j].isRat) {
-                emptyHoles.add(j);
-            }
+        i = (int)(Math.random() * 6);
+        if (hole[i].isRat == true){      
+            this.choosehole();
         }
-        if (emptyHoles.size() > 0) {
-            int randomIndex = (int)(Math.random() * emptyHoles.size());
-            i = emptyHoles.get(randomIndex);
+        else{
             hole[i].isRat = true;
         }
     }
+    // public void choosehole() {
+    //     List<Integer> emptyHoles = new ArrayList<>();
+    //     for (int j = 0; j < 6; j++) {
+    //         if (!hole[j].isRat) {
+    //             emptyHoles.add(j);
+    //         }
+    //     }
+    //     if (emptyHoles.size() > 0) {
+    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
+    //         i = emptyHoles.get(randomIndex);
+    //         hole[i].isRat = true;
+    //     }
+    // }
 
     public boolean dead() { 
         if(hp <= 0) {
