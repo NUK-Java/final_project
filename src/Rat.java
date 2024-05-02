@@ -24,7 +24,6 @@ public class Rat extends JPanel {
                 attack();
             }
             during--;
-            if(time.sec<=0) T.cancel();
         }
     };
 
@@ -59,10 +58,19 @@ public class Rat extends JPanel {
             hole[i].isRat = true;
         }
     }
+    
+    public void born() {
+        this.mode=(int)(Math.random() * 3) ;
+        this.during=3;
+        hp = (int)(Math.random() * 5) + 1;
+        this.choosehole();
+        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
+    }
 
     public boolean dead() { 
         if(hp <= 0) {
-            hole[i].isRat = false;
+            //hole[i].isRat = false; //其實原本那隻0滴血還在這 有新的其他隻在這裡born的時候 原本這隻還沒選新洞 意外被repaint
+            //暫時改為三秒內這個洞不會再生老鼠 小bug
             return true;
         }
         else return false;
@@ -72,18 +80,11 @@ public class Rat extends JPanel {
         time.sec-=hp;
         hp = 0;
         //if(time.sec<=0) time.gameOver();
-        hole[i].isRat = false;
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
+        hole[i].isRat = false;
         born();//攻擊後重生
     }
 
-    public void born() {
-        this.mode=(int)(Math.random() * 3) ;
-        this.during=3;
-        hp = (int)(Math.random() * 5) + 1;
-        this.choosehole();
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
-    }
    
     public void reduceHp() {
         hp--;
@@ -119,10 +120,10 @@ public class Rat extends JPanel {
         int mx = e.getX();
         int my = e.getY();
         if(mode==2){
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false &&hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && in==false && hp>0) {
                 in=true; 
             }
-            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true &&hp>0) {
+            if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) > 2500 && in==true && hp>0) {
                 System.out.println("cut");
                 in=false;
                 this.reduceHp();

@@ -113,7 +113,11 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
         time.Sectimer.cancel();
         Duringtimer.cancel();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 25e4ad4e6e1cacb9d1a789eb77958af8d01bebf1
     @Override
     public void mouseClicked(MouseEvent e) {}
 
