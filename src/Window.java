@@ -46,11 +46,11 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
                 generateNormalRat();
 
-                if(DuringTime >= 10 && bomb == null){
+                if(DuringTime == 3 && bomb == null){
                     bomb = new Bomb(hole, time, window);
                 }
 
-                if (DuringTime == 5 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime == 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                     
                 }

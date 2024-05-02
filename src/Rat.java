@@ -69,7 +69,7 @@ public class Rat extends JPanel {
 
     public boolean dead() { 
         if(hp <= 0) {
-            //hole[i].isRat = false; //其實原本那隻0滴血還在這 有新的其他隻在這裡born的時候 原本這隻還沒選新洞 意外被repaint
+            hole[i].isRat = false; //其實原本那隻0滴血還在這 有新的其他隻在這裡born的時候 原本這隻還沒選新洞 意外被repaint
             //暫時改為三秒內這個洞不會再生老鼠 小bug
             return true;
         }

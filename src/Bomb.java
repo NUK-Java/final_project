@@ -23,10 +23,6 @@ public class Bomb extends JPanel{
             if(window.DuringTime % 4 == 0 && window.DuringTime != 10){ //每4秒重生
                 born();
             }
-            if(dead()){
-                hp = 0;
-                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
-            }     
             during--;
         }
     };
@@ -68,11 +64,7 @@ public class Bomb extends JPanel{
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新炸彈
     }
 
-    public boolean dead(){
-        return during == 0 ? true : false; 
-    }
-
-    public void attack(){
+    public void boom(){
         time.sec -= 10;
         hp = 0;
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除爆炸完後的炸彈
@@ -86,8 +78,7 @@ public class Bomb extends JPanel{
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 hp--;
-                attack();
-                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                boom();
             }
         }
     }
