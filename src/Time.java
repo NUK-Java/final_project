@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class Time extends JLabel {
     Window window;
-    int sec = 100;//+1秒
+    int sec = 100;
     
     Timer Sectimer = new Timer();
     TimerTask task = new TimerTask() { // Add opening curly brace here
@@ -37,6 +37,7 @@ public class Time extends JLabel {
     }
     
     public void gameOver() {
+        this.window.resetgame();
         JOptionPane.showMessageDialog(this, "Your total survive time：" + window.DuringTime, "Game Over", JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }
