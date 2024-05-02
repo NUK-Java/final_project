@@ -21,7 +21,9 @@ public class BossRat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
-            
+            if(during % 5 == 0 && during != 30){
+                attack();
+            }
             during--;
             if (time.sec <= 0) {
                 T.cancel();
@@ -62,6 +64,12 @@ public class BossRat extends JPanel {
 
     public void reduceHp() {
         hp--;
+    }
+
+    public void attack(){
+        time.sec -= (int)(Math.random() * 5);   //扣1~5sec
+        hp += (int)(Math.random() * 5);         //加1~5hp
+        window.repaint(hole[6].x, hole[6].y, 150, 150); //重畫boss的hp
     }
 
     public void mousePressed(MouseEvent e) {
