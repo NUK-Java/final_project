@@ -20,10 +20,14 @@ public class Bomb extends JPanel{
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run(){
-            if(window.DuringTime % 4 == 0 && window.DuringTime != 10){ //每4秒重生
+            if(window.DuringTime % 4 == 0 && window.DuringTime != 12){ //每4秒重生
                 born();
             }
-            during--;
+            else if(timeout()){
+                hp = 0;
+                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
+            }
+            during--;           
         }
     };
 
@@ -69,6 +73,10 @@ public class Bomb extends JPanel{
         hp = 0;
         window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除爆炸完後的炸彈
         hole[i].isRat = false;
+    }
+
+    public boolean timeout(){
+        return during == 0;
     }
 
     public void mousePressed(MouseEvent e) {

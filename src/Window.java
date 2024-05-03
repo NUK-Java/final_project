@@ -46,7 +46,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
                 generateNormalRat();
 
-                if(DuringTime == 3 && bomb == null){
+                if(DuringTime == 10 && bomb == null){
                     bomb = new Bomb(hole, time, window);
                 }
 
@@ -176,7 +176,9 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
                 NormalRat[i].mouseMoved(e);
             }
         }
-
+        if(bossRat != null){
+            bossRat.mouseMoved(e);
+        }
     }
 
     /***主程式***/
