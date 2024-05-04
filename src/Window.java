@@ -43,7 +43,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
         TimerTask task = new TimerTask() { //這個跑完才換其他timer跑
             public void run() {
                 generateNormalRat();
-                if (DuringTime == 2 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime == 50 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                     
                 }
