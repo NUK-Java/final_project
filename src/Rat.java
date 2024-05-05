@@ -137,7 +137,7 @@ public class Rat extends JPanel {
         hp = 0;
         //if(time.sec<=0) time.gameOver();
         hole[i].isRat = false;
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//清除攻擊完後的老鼠
+        window.repaint(hole[i].x, hole[i].y, 100, 100);//清除攻擊完後的老鼠
         born();//攻擊後重生
     }
 
@@ -146,7 +146,7 @@ public class Rat extends JPanel {
         this.mode=(int)(Math.random() * 3);
         this.during=3;
         hp = (int)(Math.random() * 5) + 1;
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//重繪新老鼠
+        window.repaint(hole[i].x, hole[i].y, 100, 100);//重繪新老鼠
     }
    
     public void reduceHp() {
@@ -160,7 +160,7 @@ public class Rat extends JPanel {
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                window.repaint(hole[i].x, hole[i].y, 100, 100);//打擊後的重繪
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
@@ -171,7 +171,7 @@ public class Rat extends JPanel {
             if((hole[i].x - mx + 50) * (hole[i].x - mx + 50) + (hole[i].y - my + 50) * (hole[i].y - my + 50) <= 2500 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                window.repaint(hole[i].x, hole[i].y, 100, 100);//打擊後的重繪
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
@@ -192,7 +192,7 @@ public class Rat extends JPanel {
                 System.out.println("cut");
                 in=false;
                 this.reduceHp();
-                window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);//打擊後的重繪
+                window.repaint(hole[i].x, hole[i].y, 100, 100);//打擊後的重繪
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;

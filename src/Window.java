@@ -47,7 +47,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
                     bossRat = new BossRat(hole, time, window);
                     
                 }
-                else if(DuringTime == 30 && smallBossRat == null && bossRat == null){ //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
+                else if(DuringTime == 3 && smallBossRat == null && bossRat == null){ //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
                     smallBossRat = new SmallBossRat(hole, time, window);
                 }
                 System.out.println(DuringTime);
