@@ -34,6 +34,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
             hole[i] = new Hole(this);  // 初始化hole
         }
         int[][] coordinates = {{360, 100},{233, 175},{488, 175},{233, 325}, {488, 325}, {360, 395}};  // 洞的座標
+        // int[][] coordinates = {{100, 100},{100, 175},{620, 175},{100, 325}, {620, 325}, {620, 395}};  // 洞的座標
         int[][] bossCoordinate = {{335,225}};
         for(int i = 0; i < 6; i++){
             hole[i].setCoordinates(coordinates[i][0], coordinates[i][1]);

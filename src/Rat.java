@@ -51,7 +51,7 @@ public class Rat extends JPanel {
         this.time = t;
         this.window = w;
         this.choosehole();
-        window.repaint(hole[i].x+25, hole[i].y+25, 50, 50);
+        window.repaint(hole[i].x, hole[i].y, 100, 100);
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
         try {
             // 讀取圖片

@@ -53,7 +53,8 @@ public class SmallBossRat extends JPanel {
         this.window = w;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        // window.repaint(hole[6].x, hole[6].y,170, 170);
+        window.repaint();
         try {
             // 讀取圖片
             image = ImageIO.read(new File("C:/java project/final_project/src/mouse4.jpg"));
@@ -105,13 +106,13 @@ public class SmallBossRat extends JPanel {
         hp = 0;
         hole[6].isRat = false;
         //System.out.println("attack");
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
     public void born(){
         this.during = 21;
         this.hp = 30;
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -121,7 +122,7 @@ public class SmallBossRat extends JPanel {
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 150, 150);
+                window.repaint(hole[6].x, hole[6].y, 170, 170);
                 hit = true;
             }
         }
@@ -129,7 +130,7 @@ public class SmallBossRat extends JPanel {
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 150, 150);
+                window.repaint(hole[6].x, hole[6].y, 170, 170);
                 hit = false;
             }
         }
