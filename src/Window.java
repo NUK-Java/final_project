@@ -15,6 +15,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
     Rat[] NormalRat= new Rat[3];
     Time time = new Time(this);
+    Bomb bomb;
     BossRat bossRat;
     SmallBossRat smallBossRat;
 
@@ -34,6 +35,7 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
             hole[i] = new Hole(this);  // 初始化hole
         }
         int[][] coordinates = {{360, 100},{233, 175},{488, 175},{233, 325}, {488, 325}, {360, 395}};  // 洞的座標
+        // int[][] coordinates = {{100, 100},{100, 175},{620, 175},{100, 325}, {620, 325}, {620, 395}};  // 洞的座標
         int[][] bossCoordinate = {{335,225}};
         for(int i = 0; i < 6; i++){
             hole[i].setCoordinates(coordinates[i][0], coordinates[i][1]);
@@ -43,11 +45,16 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
         TimerTask task = new TimerTask() { //這個跑完才換其他timer跑
             public void run() {
                 generateNormalRat();
-                if (DuringTime == 5 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+
+                if(DuringTime == 3 && bomb == null){
+                    bomb = new Bomb(hole, time, window);
+                }
+                
+                if (DuringTime == 50 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
                     
                 }
-                else if(DuringTime == 30 && smallBossRat == null && bossRat == null){ //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
+                else if(DuringTime == 3 && smallBossRat == null && bossRat == null){ //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
                     smallBossRat = new SmallBossRat(hole, time, window);
                 }
                 System.out.println(DuringTime);
@@ -77,6 +84,10 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
             }
         }
 
+        if(bomb != null){
+            bomb.paint(g2d);
+        }
+
         if (bossRat != null) {
             bossRat.paint(g2d);
         }
@@ -102,6 +113,12 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
                 NormalRat[i] = null;
             }
         }
+
+        if(bomb != null){
+            bomb.T.cancel();
+            bomb = null;
+        }
+
         if (bossRat != null) {
             bossRat.T.cancel();
             bossRat = null;
@@ -122,6 +139,9 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
             if(NormalRat[i] != null){
                 NormalRat[i].mousePressed(e);
             }
+        }
+        if(bomb != null){
+            bomb.mousePressed(e);
         }
         if (bossRat != null) {
             bossRat.mousePressed(e);
@@ -156,15 +176,12 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
                 NormalRat[i].mouseMoved(e);
             }
         }
-
     }
 
     /***主程式***/
     public static void main(String args[]) {
         Window game = new Window(); 
     }
-
-    
 }
 
  

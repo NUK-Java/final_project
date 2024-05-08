@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -8,7 +9,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+
 public class BossRat extends JPanel {
+    private BufferedImage image;
+    private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
     int x; // x座標
@@ -21,7 +30,9 @@ public class BossRat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
-            
+            if(during % 5 == 0 && during != 30){
+                attack();
+            }
             during--;
             if (time.sec <= 0) {
                 T.cancel();
@@ -40,12 +51,36 @@ public class BossRat extends JPanel {
         this.isAlive = true;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
+        try {
+            // 讀取圖片
+            image = ImageIO.read(new File("C:/java project/final_project/src/mouse4.jpg"));
+            // 調整圖片大小以符合洞的大小
+            int bossRatWidth = 150;
+            int bossRatHeight = 150;
+            BufferedImage resizedImage = new BufferedImage(bossRatWidth, bossRatHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = resizedImage.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.drawImage(image, 0, 0, bossRatWidth, bossRatHeight, null);
+            g2.dispose();
+
+            // 將圖片裁剪成圓形
+            roundedImage = new BufferedImage(resizedImage.getWidth(), resizedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            g2 = roundedImage.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setClip(new Ellipse2D.Float(0, 0, resizedImage.getWidth(), resizedImage.getHeight()));
+            g2.drawImage(resizedImage, 0, 0, null);
+            g2.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         window.repaint(hole[6].x, hole[6].y, 150, 150);
     }
 
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
+        
         if (isAlive) {
+            g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             g.setColor(new Color(40, 237, 0)); // 畫筆顏色
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
             g.drawString(String.valueOf(hp), x + 42, y + 88);
@@ -62,6 +97,12 @@ public class BossRat extends JPanel {
 
     public void reduceHp() {
         hp--;
+    }
+
+    public void attack(){
+        time.sec -= (int)(Math.random() * 5);   //扣1~5sec
+        hp += (int)(Math.random() * 5);         //加1~5hp
+        window.repaint(hole[6].x, hole[6].y, 150, 150); //重畫boss的hp
     }
 
     public void mousePressed(MouseEvent e) {
