@@ -33,7 +33,7 @@ public class SmallBossRat extends JPanel {
     TimerTask task = new TimerTask() {
         public void run() {
             //System.out.println("SBR time run"+during);
-            if((window.DuringTime-1)%30==0 && hp == 0){ //每五秒重生 測試用5秒
+            if((window.DuringTime-1)%30==0 && hp == 0 && window.bossRat == null){ //每五秒重生 測試用5秒
                 born();
             }
             if(during==0){
@@ -58,7 +58,7 @@ public class SmallBossRat extends JPanel {
         window.repaint();
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("C:/java project/final_project/src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/mouse4.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
@@ -83,9 +83,13 @@ public class SmallBossRat extends JPanel {
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
         if (hp>0) {
-            g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
-            if(mode==0) g.setColor(new Color(255,0,0)); // 畫筆顏色
-            else if (mode==1) g.setColor(new Color(0,0,255)); // 畫筆顏色
+            if(mode==0) {
+                g.setColor(new Color(255,0,0)); // 畫筆顏色
+                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            } else if (mode==1) {
+                g.setColor(new Color(0,0,255)); // 畫筆顏色
+                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            }
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
             g.drawString(String.valueOf(hp), x + 42, y + 88);
         }
@@ -124,16 +128,22 @@ public class SmallBossRat extends JPanel {
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 170, 170);
+                window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
+                }
             }
         }
         else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 170, 170);
+                window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
+                }
             }
         }
     }
