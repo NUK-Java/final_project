@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -7,9 +8,16 @@ import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+
 
 public class SmallBossRat extends JPanel {
-
+    private BufferedImage image;
+    private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
     int x; // x座標
@@ -46,14 +54,42 @@ public class SmallBossRat extends JPanel {
         this.window = w;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        // window.repaint(hole[6].x, hole[6].y,170, 170);
+        window.repaint();
+        try {
+            // 讀取圖片
+            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            // 調整圖片大小以符合洞的大小
+            int bossRatWidth = 150;
+            int bossRatHeight = 150;
+            BufferedImage resizedImage = new BufferedImage(bossRatWidth, bossRatHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = resizedImage.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.drawImage(image, 0, 0, bossRatWidth, bossRatHeight, null);
+            g2.dispose();
+
+            // 將圖片裁剪成圓形
+            roundedImage = new BufferedImage(resizedImage.getWidth(), resizedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            g2 = roundedImage.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setClip(new Ellipse2D.Float(0, 0, resizedImage.getWidth(), resizedImage.getHeight()));
+            g2.drawImage(resizedImage, 0, 0, null);
+            g2.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
         if (hp>0) {
-            if(mode==0) g.setColor(new Color(255,0,0)); // 畫筆顏色
-            else if (mode==1) g.setColor(new Color(0,0,255)); // 畫筆顏色
+            if(mode==0) {
+                g.setColor(new Color(255,0,0)); // 畫筆顏色
+                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            } else if (mode==1) {
+                g.setColor(new Color(0,0,255)); // 畫筆顏色
+                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            }
             g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
             g.drawString(String.valueOf(hp), x + 42, y + 88);
         }
@@ -76,13 +112,13 @@ public class SmallBossRat extends JPanel {
         hp = 0;
         hole[6].isRat = false;
         //System.out.println("attack");
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
     public void born(){
         this.during = 21;
         this.hp = 30;
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
     public void mousePressed(MouseEvent e) {
