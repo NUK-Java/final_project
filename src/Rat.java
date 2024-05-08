@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.image.BufferedImage;
@@ -35,6 +39,9 @@ public class Rat extends JPanel {
             if(during==0 && dead()) {
                 born();
             }
+            else if(during==0 && dead()) {
+                born();
+            }
             else if(during==0){
                 attack();
             }
@@ -44,6 +51,7 @@ public class Rat extends JPanel {
     };
 
     Rat(Hole[]h, Time t, Window w) {
+        this.mode=(int)(Math.random() * 3);
         this.mode=(int)(Math.random() * 3);
         this.during = 3;
         this.hp = (int)(Math.random() * 5) + 1;
@@ -99,6 +107,20 @@ public class Rat extends JPanel {
             hole[i].isRat = true;
         }
     }
+    // public void choosehole() {
+    //     List<Integer> emptyHoles = new ArrayList<>();
+    //     for (int j = 0; j < 6; j++) {
+    //         if (!hole[j].isRat) {
+    //             emptyHoles.add(j);
+    //         }
+    //     }
+    //     if (emptyHoles.size() > 0) {
+    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
+    //         i = emptyHoles.get(randomIndex);
+    //         hole[i].isRat = true;
+    //     }
+    // }
+
     // public void choosehole() {
     //     List<Integer> emptyHoles = new ArrayList<>();
     //     for (int j = 0; j < 6; j++) {
