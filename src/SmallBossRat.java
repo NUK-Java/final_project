@@ -25,7 +25,7 @@ public class SmallBossRat extends JPanel {
     TimerTask task = new TimerTask() {
         public void run() {
             //System.out.println("SBR time run"+during);
-            if((window.DuringTime-1)%30==0 && hp == 0){ //每五秒重生 測試用5秒
+            if((window.DuringTime-1)%30==0 && hp == 0 && window.bossRat == null){ //每五秒重生 測試用5秒
                 born();
             }
             if(during==0){
@@ -94,6 +94,9 @@ public class SmallBossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
+                }
             }
         }
         else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
@@ -102,6 +105,9 @@ public class SmallBossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
+                }
             }
         }
     }

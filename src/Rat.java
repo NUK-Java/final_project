@@ -118,6 +118,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore++;
                 }
             }
         }
@@ -129,6 +130,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore+=3;
                 }
             }
         }
@@ -150,6 +152,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore+=3;
                 }
             }
         }
