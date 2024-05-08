@@ -39,9 +39,6 @@ public class Rat extends JPanel {
             if(during==0 && dead()) {
                 born();
             }
-            else if(during==0 && dead()) {
-                born();
-            }
             else if(during==0){
                 attack();
             }
@@ -59,7 +56,6 @@ public class Rat extends JPanel {
         this.time = t;
         this.window = w;
         this.choosehole();
-        window.repaint(hole[i].x, hole[i].y, 100, 100);
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
         try {
             // 讀取圖片
@@ -83,16 +79,23 @@ public class Rat extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();  // 印出錯誤訊息
         }
+        window.repaint(hole[i].x, hole[i].y, 100, 100);
     }
     
     public void paint(Graphics g) {
         if(hp > 0) {
-            if(mode==0) g.setColor(new Color(255,0,0)); //紅
-            else if(mode==1) g.setColor(new Color(0,0,255));//藍
-            else if(mode==2) g.setColor(new Color(128,0,128));//紫
             int holeX = hole[i].x; // 洞的x座標
             int holeY = hole[i].y; // 洞的y座標
-            g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            if(mode==0) {
+                g.setColor(new Color(255,0,0)); //紅
+                g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            } else if(mode==1) {
+                g.setColor(new Color(0,0,255));//藍
+                g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            } else if(mode==2) {
+                g.setColor(new Color(128,0,128));//紫 
+                g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
+            }
 		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
 		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
         }
@@ -107,47 +110,6 @@ public class Rat extends JPanel {
             hole[i].isRat = true;
         }
     }
-    // public void choosehole() {
-    //     List<Integer> emptyHoles = new ArrayList<>();
-    //     for (int j = 0; j < 6; j++) {
-    //         if (!hole[j].isRat) {
-    //             emptyHoles.add(j);
-    //         }
-    //     }
-    //     if (emptyHoles.size() > 0) {
-    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
-    //         i = emptyHoles.get(randomIndex);
-    //         hole[i].isRat = true;
-    //     }
-    // }
-
-    // public void choosehole() {
-    //     List<Integer> emptyHoles = new ArrayList<>();
-    //     for (int j = 0; j < 6; j++) {
-    //         if (!hole[j].isRat) {
-    //             emptyHoles.add(j);
-    //         }
-    //     }
-    //     if (emptyHoles.size() > 0) {
-    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
-    //         i = emptyHoles.get(randomIndex);
-    //         hole[i].isRat = true;
-    //     }
-    // }
-
-    // public void choosehole() {
-    //     List<Integer> emptyHoles = new ArrayList<>();
-    //     for (int j = 0; j < 6; j++) {
-    //         if (!hole[j].isRat) {
-    //             emptyHoles.add(j);
-    //         }
-    //     }
-    //     if (emptyHoles.size() > 0) {
-    //         int randomIndex = (int)(Math.random() * emptyHoles.size());
-    //         i = emptyHoles.get(randomIndex);
-    //         hole[i].isRat = true;
-    //     }
-    // }
 
     public boolean dead() { 
         if(hp <= 0) return true;
@@ -186,6 +148,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore++;
                 }
             }
         }
@@ -197,6 +160,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore+=3;
                 }
             }
         }
@@ -218,6 +182,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
+                    window.finalScore+=3;
                 }
             }
         }
