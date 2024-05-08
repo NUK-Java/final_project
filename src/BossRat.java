@@ -56,7 +56,7 @@ public class BossRat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("C:/java project/final_project/src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/mouse4.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
