@@ -25,6 +25,8 @@ public class UI extends JFrame implements ActionListener{
         this.setResizable(false);
         this.setLocationRelativeTo(null); // 讓視窗置中
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        imagePanel = (JPanel) this.getContentPane(); // 把内容視窗轉為JPanel，否則不能使用setOpaque()來使視窗變成透明
+        imagePanel.setOpaque(false); // 使視窗變成透明 才可以放背景圖 不然會被白色蓋掉
 
         c=getContentPane();//取得ContentPane
         //設定版面設定
@@ -50,11 +52,10 @@ public class UI extends JFrame implements ActionListener{
         // this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); 
 
         bgLabel = new JLabel(); 
-        bgLabel.setIcon(new ImageIcon("src/UI_bg2.jpg"));
+        bgLabel.setIcon(new ImageIcon("src/UI_bg2.jpg")); //把背景圖顯示在Label中
         bgLabel.setBounds(0, 0, 800, 560);
-        imagePanel = (JPanel) this.getContentPane();
-        imagePanel.setOpaque(false);
-        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); 
+
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
 
         c.add(start);
         c.add(rule);
@@ -85,7 +86,7 @@ public class UI extends JFrame implements ActionListener{
             Window game = new Window();
             //關掉選單
             this.dispose();
-            rule_page.dispose();
+            //rule_page.dispose();
         }
         if (e.getSource()==rule){
             this.showRule();
