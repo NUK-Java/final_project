@@ -14,17 +14,17 @@ public class Prop extends JPanel implements ActionListener {
         setLocation(0, 510);
 
         button1 = new JButton("Button 1");
-        button1.setBounds(50, 50, 100, 30);
+        button1.setBounds(0, 400, 100, 40);
         button1.addActionListener(this);
         add(button1);
 
         button2 = new JButton("Button 2");
-        button2.setBounds(50, 150, 100, 30);
+        button2.setBounds(0, 440, 100, 40);
         button2.addActionListener(this);
         add(button2);
 
         button3 = new JButton("Button 3");
-        button3.setBounds(50, 250, 100, 30);
+        button3.setBounds(0, 480, 100, 40);
         button3.addActionListener(this);
         add(button3);
     }
