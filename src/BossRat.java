@@ -83,6 +83,10 @@ public class BossRat extends JPanel {
         super.paint(g); // 畫出元件
         
         if (isAlive) {
+            if(mode==0) g.setColor(new Color(255,0,0)); //紅
+            else if(mode==1) g.setColor(new Color(0,0,255));//藍
+            else if(mode==2) g.setColor(new Color(128,0,128));//紫
+            else if(mode==3) g.setColor(new Color (255,215,0)); //黃
             if(mode==0) {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);

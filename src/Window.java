@@ -6,11 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Window extends JFrame implements MouseListener,MouseMotionListener{
-    Prop prop;
+public class Window extends JFrame implements MouseListener,MouseMotionListener,ActionListener{
+
     Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
     Rat[] NormalRat= new Rat[3];
@@ -25,7 +27,8 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
     
     public Window() {
         super("打地鼠");
-        prop = new Prop(this);
+        Prop prop = new Prop(this);
+        add(prop);
         setSize(800,560);  // 設定size，顯示出去
         setVisible(true);
         this.setResizable(false);
@@ -96,8 +99,6 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
         if (smallBossRat != null) {
             smallBossRat.paint(g2d);
         }
-        //prop.paint(g2d);
-        prop.paint((Graphics2D) g);
     }
 
     public void generateNormalRat() {
@@ -138,7 +139,6 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
     public void mouseClicked(MouseEvent e) {}
 
     public void mousePressed(MouseEvent e) {
-        prop.mousePressed(e);
         for(int i=0;i<3;i++){
             if(NormalRat[i] != null){
                 NormalRat[i].mousePressed(e);
@@ -187,7 +187,13 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
     /***主程式***/
     public static void main(String args[]) {
-        Window game = new Window(); 
+        UI ui = new UI();
+        //Window game = new Window(); 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 }
 
