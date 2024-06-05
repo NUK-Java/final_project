@@ -6,10 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Window extends JFrame implements MouseListener,MouseMotionListener{
+public class Window extends JFrame implements MouseListener,MouseMotionListener,ActionListener{
 
     Window window = this;
     Hole[] hole = new Hole[7];  // 宣告一個Hole的陣列
@@ -25,6 +27,8 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
     
     public Window() {
         super("打地鼠");
+        Prop prop = new Prop(this);
+        add(prop);
         setSize(800,560);  // 設定size，顯示出去
         setVisible(true);
         this.setResizable(false);
@@ -183,8 +187,17 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener{
 
     /***主程式***/
     public static void main(String args[]) {
-        Window game = new Window(); 
+        UI ui = new UI();
+        //Window game = new Window(); 
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
+>>>>>>> a3a46dbaf8dd288348c0b1672f99028ae4219bb0
 }
 
  
