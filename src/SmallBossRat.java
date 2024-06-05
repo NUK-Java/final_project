@@ -8,52 +8,54 @@ import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 
-public class BossRat extends JPanel {
+
+public class SmallBossRat extends JPanel {
     private BufferedImage image;
     private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
     int x; // x座標
     int y; // y座標
-    int mode;
+
     Time time;
     Window window;
-    boolean isAlive;
     Hole[] hole;
+
+    int mode;
 
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
-            changeMode();
-            window.repaint(hole[6].x, hole[6].y, 150, 150);
-            if(during % 5 == 0 && during != 30){
+            //System.out.println("SBR time run"+during);
+            if((window.DuringTime-1)%30==0 && hp == 0 && window.bossRat == null){ //每五秒重生 測試用5秒
+                born();
+            }
+            if(during==0){
                 attack();
             }
             during--;
-            if (time.sec <= 0) {
-                T.cancel();
-                isAlive = false;
-            }
+            if (time.sec <= 0) T.cancel();
         }
     };
 
-    BossRat(Hole []h, Time t, Window w) {
-        this.during = 30;
-        this.hp = 50;
+    SmallBossRat(Hole []h, Time t, Window w) {
+        this.during = 21;//持續20秒(含) 
+        this.hp = 30;
+        this.mode = (int)(Math.random() * 2);//0:紅(左鍵) 1:藍(右鍵)
         this.x = 335; // x座標設定為正中間
         this.y = 225; // y座標設定為正中間
         this.time = t;
         this.window = w;
-        this.isAlive = true;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
+        // window.repaint(hole[6].x, hole[6].y,170, 170);
+        window.repaint();
         try {
             // 讀取圖片
             image = ImageIO.read(new File("./src/mouse4.jpg"));
@@ -76,33 +78,20 @@ public class BossRat extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        window.repaint(hole[6].x, hole[6].y, 150, 150);
     }
 
     public void paint(Graphics g) {
         super.paint(g); // 畫出元件
-        
-        if (isAlive) {
-            if(mode==0) g.setColor(new Color(255,0,0)); //紅
-            else if(mode==1) g.setColor(new Color(0,0,255));//藍
-            else if(mode==2) g.setColor(new Color(128,0,128));//紫
-            else if(mode==3) g.setColor(new Color (255,215,0)); //黃
+        if (hp>0) {
             if(mode==0) {
-                g.setColor(new Color(255,0,0)); //紅
+                g.setColor(new Color(255,0,0)); // 畫筆顏色
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
-            } else if(mode==1) {
-                g.setColor(new Color(0,0,255));//藍
-                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
-            } else if(mode==2) {
-                g.setColor(new Color(128,0,128));//紫
+            } else if (mode==1) {
+                g.setColor(new Color(0,0,255)); // 畫筆顏色
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-            else if(mode==3) {
-                g.setColor(new Color (255,215,0)); //黃
-                g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
-            }
-		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    g.drawString(String.valueOf(hp), hole[6].x+42, hole[6].y+88);
+            g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
+            g.drawString(String.valueOf(hp), x + 42, y + 88);
         }
     }
 
@@ -119,16 +108,17 @@ public class BossRat extends JPanel {
     }
 
     public void attack(){
-        time.sec -= (int)(Math.random() * 5);   //扣1~5sec
-        hp += (int)(Math.random() * 5);         //加1~5hp
-        window.repaint(hole[6].x, hole[6].y, 150, 150); //重畫boss的hp
+        time.sec -= hp;
+        hp = 0;
+        hole[6].isRat = false;
+        //System.out.println("attack");
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
-    public void changeMode(){
-        int temp = mode;
-        while(temp == mode){
-            mode = (int)(Math.random() * 4);
-        }
+    public void born(){
+        this.during = 21;
+        this.hp = 30;
+        window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -138,45 +128,23 @@ public class BossRat extends JPanel {
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
-                if(this.dead()){
-                    window.finalScore += 50;
-                    time.gameOver();
+                window.repaint(hole[6].x, hole[6].y, 150, 150);
+                mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
                 }
             }
         }
-        if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
+        else if(e.getButton() == MouseEvent.BUTTON3 && mode==1) {  // 右鍵
             if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && hp > 0) {
                 System.out.println("hit");
                 this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
-                if(this.dead()){
-                    window.finalScore += 50;
-                    time.gameOver();        
+                window.repaint(hole[6].x, hole[6].y, 150, 150);
+                mode = (int)(Math.random() * 2);
+                if(this.dead()) {
+                    window.finalScore += 20;
                 }
             }
         }
-    }
-
-    boolean in=false;
-    public void mouseMoved(MouseEvent e) {  
-        int mx = e.getX();
-        int my = e.getY();
-        if(mode==2){
-            if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) <= 75*75 && in==false &&hp>0) {
-                in=true; 
-            }
-            if((hole[6].x - mx + 75) * (hole[6].x - mx + 75) + (hole[6].y - my + 75) * (hole[6].y - my + 75) > 75*75 && in==true &&hp>0) {
-                System.out.println("cut");
-                in=false;
-                this.reduceHp();
-                window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
-                if(this.dead()){
-                    window.finalScore += 50;
-                    time.gameOver();
-                }
-            }
-        }
-        
     }
 }

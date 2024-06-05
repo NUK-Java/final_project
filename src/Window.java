@@ -190,14 +190,11 @@ public class Window extends JFrame implements MouseListener,MouseMotionListener,
         UI ui = new UI();
         //Window game = new Window(); 
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public void actionPerformed(ActionEvent e) {
         
     }
->>>>>>> a3a46dbaf8dd288348c0b1672f99028ae4219bb0
 }
 
  
