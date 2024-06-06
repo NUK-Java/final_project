@@ -1,11 +1,13 @@
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.Graphics;
 
 public class Time extends JLabel {
     Window window;
@@ -28,7 +30,7 @@ public class Time extends JLabel {
         Sectimer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
     }
 
-    public void paint(Graphics2D g) {
+    public void paint(Graphics g) {
         g.setColor(new Color(0,0,0)); //畫筆顏色
         g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
         g.drawString(String.valueOf(sec), 400, 70);

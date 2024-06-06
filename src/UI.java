@@ -52,7 +52,7 @@ public class UI extends JFrame implements ActionListener{
         // this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); 
 
         bgLabel = new JLabel(); 
-        bgLabel.setIcon(new ImageIcon("src/UI_bg2.jpg")); //把背景圖顯示在Label中
+        bgLabel.setIcon(new ImageIcon("./src/UI_bg2.jpg")); //把背景圖顯示在Label中
         bgLabel.setBounds(0, 0, 800, 560);
 
         this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖

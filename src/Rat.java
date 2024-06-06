@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+import java.awt.Image;
 
 public class Rat extends JPanel {
     private BufferedImage image;
@@ -29,6 +30,8 @@ public class Rat extends JPanel {
     int during; //存在時間
     int hp;//生命值1~5隨機
     int i;//洞的index
+    int normal_score = 1;
+    int special_score = 3;
     Hole[] hole;
     Time time;
     Window window;  
@@ -134,7 +137,7 @@ public class Rat extends JPanel {
     }
    
     public void reduceHp() {
-        hp--;
+        hp -= window.attack;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -148,7 +151,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore++;
+                    window.finalScore += normal_score;
                 }
             }
         }
@@ -160,7 +163,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore+=3;
+                    window.finalScore += special_score;
                 }
             }
         }
@@ -182,7 +185,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore+=3;
+                    window.finalScore += special_score;
                 }
             }
         }

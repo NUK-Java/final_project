@@ -20,6 +20,7 @@ public class BossRat extends JPanel {
     private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
+    int score = 50; //分數
     int x; // x座標
     int y; // y座標
     int mode;
@@ -56,7 +57,7 @@ public class BossRat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/mouse1.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
@@ -101,7 +102,7 @@ public class BossRat extends JPanel {
                 g.setColor(new Color (255,215,0)); //黃
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
+		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
 		    g.drawString(String.valueOf(hp), hole[6].x+42, hole[6].y+88);
         }
     }
@@ -115,7 +116,7 @@ public class BossRat extends JPanel {
     }
 
     public void reduceHp() {
-        hp--;
+        hp -= window.attack;
     }
 
     public void attack(){
@@ -140,7 +141,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.finalScore += score;
                     time.gameOver();
                 }
             }
@@ -151,7 +152,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.finalScore += score;
                     time.gameOver();        
                 }
             }
@@ -172,7 +173,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.finalScore += score;
                     time.gameOver();
                 }
             }
