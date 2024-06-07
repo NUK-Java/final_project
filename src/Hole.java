@@ -18,12 +18,12 @@ public class Hole extends JPanel {
     }
     
     public void paint(Graphics g) {
-        g.drawOval(this.x, this.y, 100,100);  // 畫外緣
+        //g.drawOval(this.x, this.y, 100,100);  // 畫外緣
         // g.drawRect(x, y, 100, 100);
     }
 
     public void bossPaint(Graphics g) {
-        g.drawOval(this.x, this.y, 150,150);  // 畫外緣
+        //g.drawOval(this.x, this.y, 150,150);  // 畫外緣
         // g.drawRect(x, y, 150, 150);
     }
 }

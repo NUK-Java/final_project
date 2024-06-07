@@ -16,9 +16,9 @@ public class Time extends JLabel {
     Timer Sectimer = new Timer();
     TimerTask task = new TimerTask() { // Add opening curly brace here
         public void run() {
-            window.repaint(400,50,50,30);
+            window.repaint(385,50,50,30);
             sec--;
-            if(sec > 0) window.repaint(400,50,50,30);
+            if(sec > 0) window.repaint(385,50,50,30);
             else {
                 gameOver();
             }
@@ -31,15 +31,15 @@ public class Time extends JLabel {
     }
 
     public void paint(Graphics g) {
-        g.setColor(new Color(0,0,0)); //畫筆顏色
+        g.setColor(new Color(250,100,0)); //畫筆顏色
         g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
-        g.drawString(String.valueOf(sec), 400, 70);
+        g.drawString(String.valueOf(sec), 385, 70);
     }
     
     public void gameOver() {
         window.resetgame();
         window.finalScore += window.DuringTime;
-        JOptionPane.showMessageDialog(this, "Your total survive time：" + window.finalScore, "Game Over", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showMessageDialog(this, "Your total score：" + window.finalScore, "Game Over", JOptionPane.YES_NO_OPTION);
         UI ui = new UI();
         window.dispose();
     }

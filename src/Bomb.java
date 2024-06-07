@@ -52,7 +52,7 @@ public class Bomb extends JPanel{
 
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/bomb.jpg"));
+            image = ImageIO.read(new File("./src/trap.jpg"));
             // 調整圖片大小符合洞的大小
             int RatWidth = 100;
             int RatHeight = 100;

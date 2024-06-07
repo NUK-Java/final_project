@@ -88,18 +88,18 @@ public class BossRat extends JPanel {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==1) {
-                g.setColor(new Color(0,0,255));//藍
+                g.setColor(new Color(0,255,255));//藍
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
                 g.setColor(new Color(255,255,0));//黃
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
             else if(mode==3) {
-                g.setColor(new Color (0,0,0)); //橘
+                g.setColor(new Color (255,255,255)); //白
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
 		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
-		    g.drawString(String.valueOf(hp), hole[6].x+42, hole[6].y+88);
+		    g.drawString(String.valueOf(hp), hole[6].x+60, hole[6].y+140);
         }
     }
 

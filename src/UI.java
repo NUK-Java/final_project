@@ -12,7 +12,7 @@ public class UI extends JFrame implements ActionListener{
     Container c;
     JPanel imagePanel;
     JButton start,rule;
-    JLabel bgLabel;
+    JLabel bgLabel,titlelabel;
     ImageIcon background;
 
     UI(){
@@ -31,18 +31,26 @@ public class UI extends JFrame implements ActionListener{
 
         //初始化UI元件
         start = new JButton("開始");
-        start.setBounds(280, 460, 100,30); // 設定按鈕的位置和大小
+        start.setBounds(280, 430, 100,30); // 設定按鈕的位置和大小
         start.addActionListener(this);
 
         rule = new JButton("遊戲規則");
-        rule.setBounds(420, 460, 100,30); // 設定按鈕的位置和大小
+        rule.setBounds(420, 430, 100,30); // 設定按鈕的位置和大小
         rule.addActionListener(this);
+
+        titlelabel = new JLabel(); 
+        titlelabel.setIcon(new ImageIcon("./src/title.png")); //把背景圖顯示在Label中
+        titlelabel.setBounds(100, 100, 800, 100);
+        this.getLayeredPane().add(titlelabel); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
 
         bgLabel = new JLabel(); 
         bgLabel.setIcon(new ImageIcon("./src/UI_bg.jpg")); //把背景圖顯示在Label中
         bgLabel.setBounds(0, 0, 800, 560);
-
         this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
+
+        JLabel wordLabel = new JLabel("<html><br><font color='white' style='font-weight:bold; font-size:14px; font-family:Microsoft JhengHei ;'>你昔日生活的城市被老鼠大舉入侵，街道、城鎮、皇宮被老鼠們佔領<br>，到處散布著有毒的煙霧，你能感受到生命因為毒氣漸漸流逝，但你<br>別無選擇，你必須擊殺鼠王，拯救這個城市，奪回曾經的家，你毅然<br>決然的向皇宮走去......</font></html>");
+        wordLabel.setBounds(120, 0, 800, 560); 
+        this.getLayeredPane().add(wordLabel);
 
         c.add(start);
         c.add(rule);
@@ -58,12 +66,13 @@ public class UI extends JFrame implements ActionListener{
         rule_page.setLocationRelativeTo(null); // 讓視窗置中
         rule_page.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        JLabel wordLabel = new JLabel("以下是遊戲規則：");
-        wordLabel.setBounds(10, 10, 100, 20); 
+        JLabel wordLabel1 = new JLabel
+        ("以下是遊戲規則：\n");
+        wordLabel1.setBounds(10, 10, 100, 20); 
 
         Container rc = rule_page.getContentPane();
         rc.setLayout(new FlowLayout());
-        rc.add(wordLabel);
+        rc.add(wordLabel1);
         rc.setLayout(null);
     }
 

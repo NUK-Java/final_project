@@ -23,7 +23,7 @@ public class Rat extends JPanel {
     int hp;//生命值1~5隨機
     int i;//洞的index
     int normal_score = 1;
-    int special_score = 3;
+
     Hole[] hole;
     Time time;
     Window window;  
@@ -85,14 +85,14 @@ public class Rat extends JPanel {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==1) {
-                g.setColor(new Color(0,0,255));//藍
+                g.setColor(new Color(0,255,255));//藍
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
                 g.setColor(new Color(255,255,0));//紫 
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
 		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
-		    g.drawString(String.valueOf(hp), hole[i].x+40, hole[i].y+80);
+		    g.drawString(String.valueOf(hp), hole[i].x+45, hole[i].y+78);
         }
     }
     
@@ -155,7 +155,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore += special_score;
+                    window.finalScore += normal_score;
                 }
             }
         }
@@ -177,7 +177,7 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore += special_score;
+                    window.finalScore += normal_score;
                 }
             }
         }

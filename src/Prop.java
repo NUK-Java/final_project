@@ -90,7 +90,6 @@ public class Prop extends JPanel implements ActionListener {
             for(int i = 0; i < 3; i++){
                 if(window.NormalRat[i] != null){
                     window.NormalRat[i].normal_score = 2;
-                    window.NormalRat[i].special_score = 6;
                 }
             }
             if(window.bossRat != null){
@@ -112,7 +111,6 @@ public class Prop extends JPanel implements ActionListener {
                         for(int i = 0; i < 3; i++){
                             if(window.NormalRat[i] != null){
                                 window.NormalRat[i].normal_score = 1;
-                                window.NormalRat[i].special_score = 3;
                             }
                         }
                         if(window.bossRat != null){
