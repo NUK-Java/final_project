@@ -20,8 +20,6 @@ public class Prop extends JPanel implements ActionListener {
         this.window = window;
         this.time = time;
         setLayout(null);
-        //setSize(1120, 70);
-        //setLocation(0, 510);
         this.setOpaque(false);
         
         Font buttonFont = new Font("Microsoft YaHei", Font.PLAIN, 14);

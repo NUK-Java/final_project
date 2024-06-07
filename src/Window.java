@@ -50,7 +50,7 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
         imagePanel1 = (JPanel) this.getContentPane(); // 把内容視窗轉為JPanel，否則不能使用setOpaque()來使視窗變成透明
         imagePanel1.setOpaque(false); // 使視窗變成透明 才可以放背景圖 不然會被白色蓋掉
         bgLabel1 = new JLabel(); 
-        bgLabel1.setIcon(new ImageIcon("./src/BG.jpg")); //把背景圖顯示在Label中
+        bgLabel1.setIcon(new ImageIcon("./src/bg.jpg")); //把背景圖顯示在Label中
         bgLabel1.setBounds(0, 0, 800, 560);
         this.getLayeredPane().add(bgLabel1, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
       

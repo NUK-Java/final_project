@@ -57,7 +57,7 @@ public class BossRat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse1.jpg"));
+            image = ImageIO.read(new File("./src/mouse3.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
@@ -84,10 +84,6 @@ public class BossRat extends JPanel {
         super.paint(g); // 畫出元件
         
         if (isAlive) {
-            if(mode==0) g.setColor(new Color(255,0,0)); //紅
-            else if(mode==1) g.setColor(new Color(0,0,255));//藍
-            else if(mode==2) g.setColor(new Color(128,0,128));//紫
-            else if(mode==3) g.setColor(new Color (255,215,0)); //黃
             if(mode==0) {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
@@ -95,11 +91,11 @@ public class BossRat extends JPanel {
                 g.setColor(new Color(0,0,255));//藍
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
-                g.setColor(new Color(128,0,128));//紫
+                g.setColor(new Color(255,255,0));//黃
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
             else if(mode==3) {
-                g.setColor(new Color (255,215,0)); //黃
+                g.setColor(new Color (0,0,0)); //橘
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
 		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型

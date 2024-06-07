@@ -54,7 +54,7 @@ public class Rat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/mouse1.jpg"));
             // 調整圖片大小符合洞的大小
             int RatWidth = 100;
             int RatHeight = 100;
@@ -88,11 +88,11 @@ public class Rat extends JPanel {
                 g.setColor(new Color(0,0,255));//藍
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
-                g.setColor(new Color(128,0,128));//紫 
+                g.setColor(new Color(255,255,0));//紫 
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
+		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
+		    g.drawString(String.valueOf(hp), hole[i].x+40, hole[i].y+80);
         }
     }
     
