@@ -1,5 +1,9 @@
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -10,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Image;
+import java.awt.FlowLayout;
 
 public class Window extends JFrame implements MouseListener, MouseMotionListener, ActionListener {
 
@@ -26,17 +31,30 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
     int finalScore = 0;
     Timer Duringtimer = new Timer();
 
+
+    JPanel imagePanel1;
+    JLabel bgLabel1;
     public Window() {
 
         super("打地鼠");
         System.setProperty("sun.java2d.opengl", "true");
         Prop prop = new Prop(this, this.time);
         add(prop);
+
         setSize(800, 560);  // 設定size，顯示出去
         setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null); // 讓視窗置中
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        imagePanel1 = (JPanel) this.getContentPane(); // 把内容視窗轉為JPanel，否則不能使用setOpaque()來使視窗變成透明
+        imagePanel1.setOpaque(false); // 使視窗變成透明 才可以放背景圖 不然會被白色蓋掉
+        bgLabel1 = new JLabel(); 
+        bgLabel1.setIcon(new ImageIcon("./src/BG.jpg")); //把背景圖顯示在Label中
+        bgLabel1.setBounds(0, 0, 800, 560);
+        this.getLayeredPane().add(bgLabel1, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
+      
+
         addMouseListener(this);  // 在這個視窗上加入滑鼠監聽器
         addMouseMotionListener(this);
         for (int i = 0; i < 7; i++) {

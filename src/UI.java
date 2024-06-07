@@ -3,11 +3,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
-import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,16 +37,6 @@ public class UI extends JFrame implements ActionListener{
         rule = new JButton("遊戲規則");
         rule.setBounds(420, 460, 100,30); // 設定按鈕的位置和大小
         rule.addActionListener(this);
-
-        // background = new ImageIcon(getClass().getResource("/UI_bg2.jpg"));       // 背景圖片
-        // //Image scaledImage = background.getImage().getScaledInstance(800, 560, Image.SCALE_DEFAULT);//調整圖片大小
-        // //ImageIcon background = new ImageIcon(scaledImage);  
-        // bgLabel = new JLabel(background); // 把背景圖顯示在Label中
-        // bgLabel.setBounds(0, 0, background.getIconWidth(), background.getIconHeight());    // 把含有背景圖之Label位置設置為圖片剛好填充整個版面
-        // // 把内容視窗轉為JPanel，否則不能使用setOpaque()來使視窗變成透明
-        // imagePanel = (JPanel) this.getContentPane();
-        // imagePanel.setOpaque(false);
-        // this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE)); 
 
         bgLabel = new JLabel(); 
         bgLabel.setIcon(new ImageIcon("./src/UI_bg2.jpg")); //把背景圖顯示在Label中
