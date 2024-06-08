@@ -144,6 +144,7 @@ public class Rat extends JPanel {
                     hole[i].isRat = false;
                     time.sec++;
                     window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }
@@ -156,6 +157,7 @@ public class Rat extends JPanel {
                     hole[i].isRat = false;
                     time.sec++;
                     window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }
@@ -178,6 +180,7 @@ public class Rat extends JPanel {
                     hole[i].isRat = false;
                     time.sec++;
                     window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }

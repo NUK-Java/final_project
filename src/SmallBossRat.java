@@ -133,6 +133,7 @@ public class SmallBossRat extends JPanel {
                 mode = (int)(Math.random() * 2);
                 if(this.dead()) {
                     window.finalScore += score;
+                    window.score += score;
                 }
             }
         }
@@ -144,6 +145,7 @@ public class SmallBossRat extends JPanel {
                 mode = (int)(Math.random() * 2);
                 if(this.dead()) {
                     window.finalScore += score;
+                    window.score += score;
                 }
             }
         }

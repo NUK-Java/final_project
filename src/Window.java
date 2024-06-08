@@ -29,6 +29,7 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
     int attack = 1;
     int DuringTime = 1; // 遊戲進行時間
     int finalScore = 0;
+    int score = 0;
     Timer Duringtimer = new Timer();
 
 
@@ -98,6 +99,7 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
         //Graphics2D g2d = (Graphics2D) g;
         Graphics g2d = (Graphics) g;
         time.paint(g2d);
+        g2d.drawString("Score: " + score, 280, 70);  // 顯示分數
         for (int i = 0; i < 6; i++) {
             hole[i].paint(g2d);  // 畫出6個hole
         }

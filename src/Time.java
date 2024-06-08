@@ -1,3 +1,4 @@
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,9 +17,23 @@ public class Time extends JLabel {
     Timer Sectimer = new Timer();
     TimerTask task = new TimerTask() { // Add opening curly brace here
         public void run() {
-            window.repaint(385,50,50,30);
+            window.repaint(355,50,70,50);  // 重畫分數
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            window.repaint(500,50,50,50);  // 重畫時間
             sec--;
-            if(sec > 0) window.repaint(385,50,50,30);
+            if(sec > 0) {
+                window.repaint(355,50,70,50);  // 重畫分數
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                window.repaint(500,50,50,50);  // 重畫時間
+            }
             else {
                 gameOver();
             }
@@ -33,7 +48,7 @@ public class Time extends JLabel {
     public void paint(Graphics g) {
         g.setColor(new Color(250,100,0)); //畫筆顏色
         g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
-        g.drawString(String.valueOf(sec), 385, 70);
+        g.drawString("Time: " + String.valueOf(sec), 430, 70);
     }
     
     public void gameOver() {

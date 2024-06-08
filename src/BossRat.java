@@ -137,6 +137,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
+                    window.score += score;
                     window.finalScore += score;
                     time.gameOver();
                 }
@@ -148,6 +149,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
+                    window.score += score;
                     window.finalScore += score;
                     time.gameOver();        
                 }
@@ -169,6 +171,7 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
+                    window.score += score;
                     window.finalScore += score;
                     time.gameOver();
                 }
