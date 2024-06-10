@@ -1,11 +1,8 @@
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Image;
-import java.awt.FlowLayout;
 
 public class Window extends JFrame implements MouseListener, MouseMotionListener, ActionListener {
 
@@ -25,7 +21,8 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
     Bomb bomb;
     BossRat bossRat;
     SmallBossRat smallBossRat;
-
+    Music normalMusic = new Music("./src/music/normalMusic.mp3");
+    
     int attack = 1;
     int DuringTime = 1; // 遊戲進行時間
     int finalScore = 0;
@@ -36,7 +33,6 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
     JPanel imagePanel1;
     JLabel bgLabel1;
     public Window() {
-
         super("打地鼠");
         System.setProperty("sun.java2d.opengl", "true");
         Prop prop = new Prop(this, this.time);
@@ -51,7 +47,7 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
         imagePanel1 = (JPanel) this.getContentPane(); // 把内容視窗轉為JPanel，否則不能使用setOpaque()來使視窗變成透明
         imagePanel1.setOpaque(false); // 使視窗變成透明 才可以放背景圖 不然會被白色蓋掉
         bgLabel1 = new JLabel(); 
-        bgLabel1.setIcon(new ImageIcon("./src/bg.jpg")); //把背景圖顯示在Label中
+        bgLabel1.setIcon(new ImageIcon("./src/pic/bg.jpg")); //把背景圖顯示在Label中
         bgLabel1.setBounds(0, 0, 800, 560);
         this.getLayeredPane().add(bgLabel1, new Integer(Integer.MIN_VALUE)); // 把含有背景圖之Label加到視窗的最底層以顯示背景圖
       
@@ -77,12 +73,14 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
                     bomb = new Bomb(hole, time, window);
                 }
 
-                if (DuringTime == 5 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
+                if (DuringTime == 90 && bossRat == null) {      // 遊戲時間到90秒時，出現BossRat，測試先用5秒，
                     bossRat = new BossRat(hole, time, window);
+                    normalMusic.stop();
 
-                } else if (DuringTime == 100 && smallBossRat == null && bossRat == null) { //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
+                } else if (DuringTime == 30 && smallBossRat == null && bossRat == null) { //遊戲時間到30秒時，出現SmallBossRat，測試用5秒
                     smallBossRat = new SmallBossRat(hole, time, window);
                 }
+           
                 System.out.println(DuringTime);
                 DuringTime++;
 
@@ -92,35 +90,30 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
             }
         };
         Duringtimer.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
+        normalMusic.play();
     }
 
     public void paint(Graphics g) {
         super.paint(g);  // 畫出元件
-        //Graphics2D g2d = (Graphics2D) g;
-        Graphics g2d = (Graphics) g;
-        time.paint(g2d);
-        g2d.drawString("Score: " + score, 280, 70);  // 顯示分數
-        for (int i = 0; i < 6; i++) {
-            hole[i].paint(g2d);  // 畫出6個hole
-        }
-        hole[6].bossPaint(g2d);
+        time.paint(g);
+        g.drawString("Score: " + score, 255, 70);  // 顯示分數
 
         for (int i = 0; i < 3; i++) {
             if (NormalRat[i] != null) {
-                NormalRat[i].paint(g2d);  // 畫出3隻NormalRat
+                NormalRat[i].paint(g);  // 畫出3隻NormalRat
             }
         }
 
         if (bomb != null) {
-            bomb.paint(g2d);
+            bomb.paint(g);
         }
 
         if (bossRat != null) {
-            bossRat.paint(g2d);
+            bossRat.paint(g);
         }
 
         if (smallBossRat != null) {
-            smallBossRat.paint(g2d);
+            smallBossRat.paint(g);
         }
 
     }
@@ -211,15 +204,13 @@ public class Window extends JFrame implements MouseListener, MouseMotionListener
 
     /***主程式***/
     public static void main(String args[]) {
-        // System.setProperty("sun.java2d.opengl", "true");
         UI ui = new UI();
-        //Window game = new Window(); 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {}
 
-    public Image offScreenImage = null;    // 新建一张背景图
+    public Image offScreenImage = null;
     public Graphics offScreenGraphics = null;
 
     public void update(Graphics g) {

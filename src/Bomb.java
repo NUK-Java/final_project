@@ -1,8 +1,5 @@
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -10,10 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 
@@ -52,7 +46,7 @@ public class Bomb extends JPanel{
 
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/trap.jpg"));
+            image = ImageIO.read(new File("./src/pic/trap.jpg"));
             // 調整圖片大小符合洞的大小
             int RatWidth = 100;
             int RatHeight = 100;
@@ -90,9 +84,6 @@ public class Bomb extends JPanel{
         int holeY = hole[i].y; // 洞的y座標
         if(hp > 0) {
             g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
-            //g.setColor(new Color(0,0,0)); //黑
-		    //g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    //g.drawString(String.valueOf('*'), hole[i].x+32, hole[i].y+68);
         }
     }
 

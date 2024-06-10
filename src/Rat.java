@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.awt.Image;
 
 public class Rat extends JPanel {
     private BufferedImage image;
@@ -54,7 +52,7 @@ public class Rat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse1.jpg"));
+            image = ImageIO.read(new File("./src/pic/mouse1.jpg"));
             // 調整圖片大小符合洞的大小
             int RatWidth = 100;
             int RatHeight = 100;
@@ -114,7 +112,6 @@ public class Rat extends JPanel {
     public void attack() {
         time.sec-=hp;
         hp = 0;
-        //if(time.sec<=0) time.gameOver();
         hole[i].isRat = false;
         window.repaint(hole[i].x, hole[i].y, 100, 100);//清除攻擊完後的老鼠
         born();//攻擊後重生

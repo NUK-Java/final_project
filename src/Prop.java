@@ -3,7 +3,7 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; // Import the ActionListener interface
+import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Font;
@@ -24,7 +24,7 @@ public class Prop extends JPanel implements ActionListener {
         
         Font buttonFont = new Font("Microsoft YaHei", Font.PLAIN, 14);
 
-        ImageIcon icon1 = new ImageIcon("./src/sword.png");
+        ImageIcon icon1 = new ImageIcon("./src/pic/sword.png");
         Image image = icon1.getImage();
         Image scaledImage = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon1 = new ImageIcon(scaledImage);
@@ -35,7 +35,7 @@ public class Prop extends JPanel implements ActionListener {
         button1.setFont(buttonFont);
         add(button1);
 
-        ImageIcon icon2 = new ImageIcon("./src/doublescore.png");
+        ImageIcon icon2 = new ImageIcon("./src/pic/doublescore.png");
         image = icon2.getImage();
         scaledImage = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon2 = new ImageIcon(scaledImage);
@@ -47,7 +47,7 @@ public class Prop extends JPanel implements ActionListener {
         
         add(button2);
 
-        ImageIcon icon3 = new ImageIcon("./src/clockstop.png");
+        ImageIcon icon3 = new ImageIcon("./src/pic/clockstop.png");
         image = icon3.getImage();
         scaledImage = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon3 = new ImageIcon(scaledImage);
@@ -67,7 +67,7 @@ public class Prop extends JPanel implements ActionListener {
             button1.setVisible(false);
             System.out.println("火力加倍開啟");
             window.attack = 2;
-            during1 = 20;
+            during1 = 10;
             Timer T = new Timer();
             TimerTask task = new TimerTask() { 
                 public void run() {
@@ -128,7 +128,6 @@ public class Prop extends JPanel implements ActionListener {
         } else if (e.getSource() == button3) {
             button3.setVisible(false);
             System.out.println("時間暫停開啟");
-            window.attack = 2;
             during3 = 10;
             Timer T = new Timer();
             TimerTask task = new TimerTask() { 
