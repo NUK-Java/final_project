@@ -1,6 +1,5 @@
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,7 +7,6 @@ import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +18,7 @@ public class BossRat extends JPanel {
     private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
+    int score = 50; //分數
     int x; // x座標
     int y; // y座標
     int mode;
@@ -27,7 +26,8 @@ public class BossRat extends JPanel {
     Window window;
     boolean isAlive;
     Hole[] hole;
-
+    static Music bossMusic = new Music("./src/music/bossMusic.mp3");
+    
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
@@ -56,7 +56,7 @@ public class BossRat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/pic/mouse3.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
@@ -77,6 +77,7 @@ public class BossRat extends JPanel {
             e.printStackTrace();
         }
         window.repaint(hole[6].x, hole[6].y, 150, 150);
+        bossMusic.play();
     }
 
     public void paint(Graphics g) {
@@ -87,36 +88,37 @@ public class BossRat extends JPanel {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==1) {
-                g.setColor(new Color(0,0,255));//藍
+                g.setColor(new Color(0,255,255)); // 藍
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
-                g.setColor(new Color(128,0,128));//紫
+                g.setColor(new Color(255,255,0));//黃
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
             else if(mode==3) {
-                g.setColor(new Color (255,215,0)); //黃
+                g.setColor(new Color (255,255,255)); //白
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    g.drawString(String.valueOf(hp), hole[6].x+42, hole[6].y+88);
+		    g.setFont(new Font("Verdana", Font.BOLD, 20)); // 字型
+            g.drawString(String.valueOf(hp), x + 60, y + 95);
         }
     }
 
     public boolean dead() { 
-        if(hp == 0) {
+        if(hp <= 0) {
             hole[6].isRat = false;
+            bossMusic.stop();
             return true;
         }
         else return false;
     }
 
     public void reduceHp() {
-        hp--;
+        hp -= window.attack;
     }
 
     public void attack(){
-        time.sec -= (int)(Math.random() * 5);   //扣1~5sec
-        hp += (int)(Math.random() * 5);         //加1~5hp
+        time.sec -= 10;
+        hp += (int)(Math.random() * 5); //加1~5hp
         window.repaint(hole[6].x, hole[6].y, 150, 150); //重畫boss的hp
     }
 
@@ -136,7 +138,9 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.score += score;
+                    window.finalScore += score;
+                    bossMusic.stop();
                     time.gameOver();
                 }
             }
@@ -147,7 +151,8 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.score += score;
+                    window.finalScore += score;
                     time.gameOver();        
                 }
             }
@@ -168,7 +173,8 @@ public class BossRat extends JPanel {
                 this.reduceHp();
                 window.repaint(hole[6].x, hole[6].y, 150, 150);//打擊後的重繪
                 if(this.dead()){
-                    window.finalScore += 50;
+                    window.score += score;
+                    window.finalScore += score;
                     time.gameOver();
                 }
             }

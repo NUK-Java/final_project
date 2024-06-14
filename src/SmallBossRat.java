@@ -1,6 +1,5 @@
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -20,6 +19,7 @@ public class SmallBossRat extends JPanel {
     private BufferedImage roundedImage; // 儲存裁剪後的圖片
     int during; // 存在時間
     int hp; // 生命值
+    int score = 20; // 分數
     int x; // x座標
     int y; // y座標
 
@@ -32,7 +32,6 @@ public class SmallBossRat extends JPanel {
     Timer T = new Timer();
     TimerTask task = new TimerTask() {
         public void run() {
-            //System.out.println("SBR time run"+during);
             if((window.DuringTime-1)%30==0 && hp == 0 && window.bossRat == null){ //每五秒重生 測試用5秒
                 born();
             }
@@ -54,11 +53,9 @@ public class SmallBossRat extends JPanel {
         this.window = w;
         this.hole = h;
         T.scheduleAtFixedRate(task, 0, 1000); // 在這裡啟動task Timer
-        // window.repaint(hole[6].x, hole[6].y,170, 170);
-        window.repaint();
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/pic/mouse2.jpg"));
             // 調整圖片大小以符合洞的大小
             int bossRatWidth = 150;
             int bossRatHeight = 150;
@@ -78,6 +75,7 @@ public class SmallBossRat extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        window.repaint();
     }
 
     public void paint(Graphics g) {
@@ -87,11 +85,11 @@ public class SmallBossRat extends JPanel {
                 g.setColor(new Color(255,0,0)); // 畫筆顏色
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if (mode==1) {
-                g.setColor(new Color(0,0,255)); // 畫筆顏色
+                g.setColor(new Color(0,255,255)); // 畫筆顏色
                 g.drawImage(roundedImage, x, y, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-            g.setFont(new Font("Verdana", Font.BOLD, 50)); // 字型
-            g.drawString(String.valueOf(hp), x + 42, y + 88);
+            g.setFont(new Font("Verdana", Font.BOLD, 20)); // 字型
+            g.drawString(String.valueOf(hp), x + 60, y + 120);
         }
     }
 
@@ -104,14 +102,13 @@ public class SmallBossRat extends JPanel {
     }
 
     public void reduceHp() {
-        hp--;
+        hp -= window.attack;
     }
 
     public void attack(){
         time.sec -= hp;
         hp = 0;
         hole[6].isRat = false;
-        //System.out.println("attack");
         window.repaint(hole[6].x, hole[6].y, 170, 170);
     }
 
@@ -131,7 +128,8 @@ public class SmallBossRat extends JPanel {
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
                 if(this.dead()) {
-                    window.finalScore += 20;
+                    window.finalScore += score;
+                    window.score += score;
                 }
             }
         }
@@ -142,7 +140,8 @@ public class SmallBossRat extends JPanel {
                 window.repaint(hole[6].x, hole[6].y, 150, 150);
                 mode = (int)(Math.random() * 2);
                 if(this.dead()) {
-                    window.finalScore += 20;
+                    window.finalScore += score;
+                    window.score += score;
                 }
             }
         }

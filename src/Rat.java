@@ -1,19 +1,10 @@
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.image.BufferedImage;
@@ -29,6 +20,8 @@ public class Rat extends JPanel {
     int during; //存在時間
     int hp;//生命值1~5隨機
     int i;//洞的index
+    int normal_score = 1;
+
     Hole[] hole;
     Time time;
     Window window;  
@@ -59,7 +52,7 @@ public class Rat extends JPanel {
         T.scheduleAtFixedRate(task, 0, 1000);  // 在這裡啟動task Timer
         try {
             // 讀取圖片
-            image = ImageIO.read(new File("./src/mouse4.jpg"));
+            image = ImageIO.read(new File("./src/pic/mouse1.jpg"));
             // 調整圖片大小符合洞的大小
             int RatWidth = 100;
             int RatHeight = 100;
@@ -90,14 +83,14 @@ public class Rat extends JPanel {
                 g.setColor(new Color(255,0,0)); //紅
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==1) {
-                g.setColor(new Color(0,0,255));//藍
+                g.setColor(new Color(0,255,255));//藍
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             } else if(mode==2) {
-                g.setColor(new Color(128,0,128));//紫 
+                g.setColor(new Color(255,255,0));//紫 
                 g.drawImage(roundedImage, holeX, holeY, roundedImage.getWidth(), roundedImage.getHeight() , this);
             }
-		    g.setFont(new Font("Verdana", Font.BOLD, 50)); //字型
-		    g.drawString(String.valueOf(hp), hole[i].x+32, hole[i].y+68);
+		    g.setFont(new Font("Verdana", Font.BOLD, 20)); //字型
+		    g.drawString(String.valueOf(hp), hole[i].x+45, hole[i].y+78);
         }
     }
     
@@ -119,7 +112,6 @@ public class Rat extends JPanel {
     public void attack() {
         time.sec-=hp;
         hp = 0;
-        //if(time.sec<=0) time.gameOver();
         hole[i].isRat = false;
         window.repaint(hole[i].x, hole[i].y, 100, 100);//清除攻擊完後的老鼠
         born();//攻擊後重生
@@ -134,7 +126,7 @@ public class Rat extends JPanel {
     }
    
     public void reduceHp() {
-        hp--;
+        hp -= window.attack;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -148,7 +140,8 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore++;
+                    window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }
@@ -160,7 +153,8 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore+=3;
+                    window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }
@@ -182,7 +176,8 @@ public class Rat extends JPanel {
                 if(this.dead()){
                     hole[i].isRat = false;
                     time.sec++;
-                    window.finalScore+=3;
+                    window.finalScore += normal_score;
+                    window.score += normal_score;
                 }
             }
         }

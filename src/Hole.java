@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-import java.awt.Graphics2D;
 
 public class Hole extends JPanel {
     protected int x;
@@ -14,13 +13,5 @@ public class Hole extends JPanel {
     public void setCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-    
-    public void paint(Graphics2D g) {
-        g.drawOval(this.x, this.y, 100,100);  // 畫外緣
-    }
-
-    public void bossPaint(Graphics2D g) {
-        g.drawOval(this.x, this.y, 150,150);  // 畫外緣
     }
 }
